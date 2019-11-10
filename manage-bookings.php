@@ -140,8 +140,8 @@
     </div>
 </div>
 							<div class="panel-body">
-							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+							<!-- <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?> -->
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
 										<tr>
@@ -342,19 +342,19 @@
 				<hr class="dashed">
 				<div class="rating">
 				<button type="button" class="btn btn-warning btn-sm rateButton" aria-label="Left Align" name="first_star" value="first_star" id="first_star">
-					<span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 20px; padding-top: 2px;"></span>
+					<span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 23px;"></span>
 				</button>
 				<button type="button" class="btn btn-default btn-grey btn-sm rateButton" aria-label="Left Align" name="second_star" value="second_star" id="second_star">
-					<span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 20px; padding-top: 2px;"></span>
+					<span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 23px;"></span>
 				</button>
 				<button type="button" class="btn btn-default btn-grey btn-sm rateButton" aria-label="Left Align" name="third_star" value="third_star" id="third_star">
-					<span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 20px; padding-top: 2px;"></span>
+					<span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 23px;"></span>
 				</button>
 				<button type="button" class="btn btn-default btn-grey btn-sm rateButton" aria-label="Left Align" name="fourth_star" value="fourth_star" id="fourth_star">
-					<span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 20px; padding-top: 2px;"></span>
+					<span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 23px;"></span>
 				</button>
 				<button type="button" class="btn btn-default btn-grey btn-sm rateButton" aria-label="Left Align" name="fifth_star" value="fifth_star" id="fifth_star">
-					<span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 20px; padding-top: 2px;"></span>
+					<span class="glyphicon glyphicon-star" aria-hidden="true" style="font-size: 23px;"></span>
 				</button>
 				</div>
 			</div>

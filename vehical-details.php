@@ -341,7 +341,39 @@ $_SESSION['brndid']=$result->bid;
           
         </div>
 <?php }} ?>
-   
+
+<div class="container" style="border: 1px solid #d0d3d4; width: 100%; padding: 10px 15px;">
+  <p style="font-size: 20px;"><i class="fa fa-info-circle" style="color:gray;"></i><strong>&nbsp;Other Details</strong></p>
+  <?php
+    $sql = "SELECT user.Fullname, user.EmailId FROM tblusers user INNER JOIN tblvehicles vehicle ON user.id = vehicle.user_id WHERE vehicle.id = :vehicle_id;";
+    $query = $dbh->prepare($sql);
+    $query -> bindParam(':vehicle_id', $_REQUEST['vhid'], PDO::PARAM_STR);
+    $query->execute();
+    $result = $query->fetchAll(PDO::FETCH_OBJ);
+  ?>
+  <table class="table table-striped">
+  <tr>
+    <th>Lender's Name</th>
+    <td><?php echo $result[0]->Fullname; ?> <span class="fa fa-check-circle" style="color: green; font-size: 20px; padding-bottom: 0;"></span></td>
+  </tr>
+  <tr>
+    <th>Lender's Email Address</th>
+    <td><?php echo $result[0]->EmailId; ?></td>
+  </tr>
+  <tr>
+    <th>Vehicle's Overall Customer Ratings</th>
+    <?php
+      $sql = "SELECT (SUM(ratings.rating)/COUNT(ratings.rating)) as average FROM tblratings ratings INNER JOIN tblbooking booking ON ratings.booking_Id = booking.id INNER JOIN tblvehicles vehicle ON booking.VehicleId = vehicle.id WHERE vehicle.id = :vehicle_id AND ratings.type = 1;";
+      $query = $dbh->prepare($sql);
+      $query -> bindParam(':vehicle_id', $_REQUEST['vhid'], PDO::PARAM_STR);
+      $query->execute();
+      $result = $query->fetchAll(PDO::FETCH_OBJ);
+    ?>
+    <td><?php echo number_format($result[0]->average, 1); ?></td>
+  </tr>
+  </table>
+</div>
+
       </div>
       
       <!--Side-Bar-->
@@ -364,7 +396,7 @@ $_SESSION['brndid']=$result->bid;
           $query->bindParam(':vehicle_id',$_GET['vhid'],PDO::PARAM_STR);
           $query->execute();
           $results = $query->rowCount();
-          $fetch = $query->fetchAll(PDO::FETCH_OBJ);;
+          $fetch = $query->fetchAll(PDO::FETCH_OBJ);
           
           if ($results == 0) {
            

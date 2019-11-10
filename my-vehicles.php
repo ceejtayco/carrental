@@ -76,11 +76,9 @@ $msg="Vehicle record deleted successfully";
 
 	<?php include('alt_includes/header.php');?>
 	
-	<div class="ts-main-content">
-		<div class="">
-		       <div style="margin-top:5%;">
-		       
-		   </div>
+	<div class="ts-main-content" style="padding:50px;">
+		<div class="container-text">
+		</div>
 			<div class="container-fluid">
 
 				<div class="row">
@@ -161,15 +159,15 @@ foreach($results as $result)
 	</div>
 
 	<!-- Loading Scripts -->
-	<script src="admin/jsjquery.min.js"></script>
-	<script src="admin/jsbootstrap-select.min.js"></script>
-	<script src="admin/jsbootstrap.min.js"></script>
-	<script src="admin/jsjquery.dataTables.min.js"></script>
-	<script src="admin/jsdataTables.bootstrap.min.js"></script>
-	<script src="admin/jsChart.min.js"></script>
-	<script src="admin/jsfileinput.js"></script>
-	<script src="admin/jschartData.js"></script>
-	<script src="admin/jsmain.js"></script>
+	<script src="admin/js/jquery.min.js"></script>
+	<script src="admin/js/bootstrap-select.min.js"></script>
+	<script src="admin/js/bootstrap.min.js"></script>
+	<script src="admin/js/jquery.dataTables.min.js"></script>
+	<script src="admin/js/dataTables.bootstrap.min.js"></script>
+	<script src="admin/js/Chart.min.js"></script>
+	<script src="admin/js/fileinput.js"></script>
+	<script src="admin/js/chartData.js"></script>
+	<script src="admin/js/main.js"></script>
   <?php  include('one-signal-check.php'); ?>
 </body>
 </html>

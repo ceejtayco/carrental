@@ -29,11 +29,11 @@ $cdplayer=$_POST['cdplayer'];
 $centrallocking=$_POST['centrallocking'];
 $crashcensor=$_POST['crashcensor'];
 $leatherseats=$_POST['leatherseats'];
-$latitude = $_POST['lat'];
-$longitude = $_POST['lng'];
+// $latitude = $_POST['lat'];
+// $longitude = $_POST['lng'];
 $id=intval($_GET['id']);
 
-$sql="update tblvehicles set VehiclesTitle=:vehicletitle,VehiclesBrand=:brand,VehiclesOverview=:vehicleoverview,PricePerDay=:priceperday,FuelType=:fueltype,ModelYear=:modelyear,SeatingCapacity=:seatingcapacity,AirConditioner=:airconditioner,PowerDoorLocks=:powerdoorlocks,AntiLockBrakingSystem=:antilockbrakingsys,BrakeAssist=:brakeassist,PowerSteering=:powersteering,DriverAirbag=:driverairbag,PassengerAirbag=:passengerairbag,PowerWindows=:powerwindow,CDPlayer=:cdplayer,CentralLocking=:centrallocking,CrashSensor=:crashcensor,LeatherSeats=:leatherseats,lat=:lat,lng=:lng where id=:id ";
+$sql="update tblvehicles set VehiclesTitle=:vehicletitle,VehiclesBrand=:brand,VehiclesOverview=:vehicleoverview,PricePerDay=:priceperday,FuelType=:fueltype,ModelYear=:modelyear,SeatingCapacity=:seatingcapacity,AirConditioner=:airconditioner,PowerDoorLocks=:powerdoorlocks,AntiLockBrakingSystem=:antilockbrakingsys,BrakeAssist=:brakeassist,PowerSteering=:powersteering,DriverAirbag=:driverairbag,PassengerAirbag=:passengerairbag,PowerWindows=:powerwindow,CDPlayer=:cdplayer,CentralLocking=:centrallocking,CrashSensor=:crashcensor,LeatherSeats=:leatherseats where id=:id ";
 $query = $dbh->prepare($sql);
 $query->bindParam(':vehicletitle',$vehicletitle,PDO::PARAM_STR);
 $query->bindParam(':brand',$brand,PDO::PARAM_STR);
@@ -54,8 +54,8 @@ $query->bindParam(':cdplayer',$cdplayer,PDO::PARAM_STR);
 $query->bindParam(':centrallocking',$centrallocking,PDO::PARAM_STR);
 $query->bindParam(':crashcensor',$crashcensor,PDO::PARAM_STR);
 $query->bindParam(':leatherseats',$leatherseats,PDO::PARAM_STR);
-$query->bindParam(':lat',$latitude,PDO::PARAM_STR);
-$query->bindParam(':lng',$longitude	,PDO::PARAM_STR);
+// $query->bindParam(':lat',$latitude,PDO::PARAM_STR);
+// $query->bindParam(':lng',$longitude	,PDO::PARAM_STR);
 $query->bindParam(':id',$id,PDO::PARAM_STR);
 $query->execute();
 
@@ -277,25 +277,25 @@ echo htmlentities("File not available");
 </div>
 
 <div class="hr-dashed"></div>
-<div class="row">
+<!-- <div class="row">
 	<div class="col-sm-12">
 		<h4><b>Car Rental Address</b></h4>
 	</div>
-</div>
-<div class="row">
+</div> -->
+<!-- <div class="row">
 	<label for="" class="col-sm-2 control-label">Address</label>
 	<div class="col-sm-9">
 		<input type="text" class="form-control" placeholder="Input Address" name="address" id="autocomplete-address" required>
 	</div>
-</div>
-<div class="row">
+</div> -->
+<!-- <div class="row">
 	<label for="" class="col-sm-2 control-label"></label>
 	<div class="col-sm-9">
 		<div id="map"></div>
 	</div>
 	<input type="hidden" name="lat" id="lat" value="<?php echo htmlentities($result->lat)?>">
 	<input type="hidden" name="lng" id="lng" value="<?php echo htmlentities($result->lng)?>">
-</div>
+</div> -->
 </div>
 
 
@@ -528,94 +528,6 @@ echo htmlentities("File not available");
 	<script src="admin/js/main.js"></script>
 </body>
 
-<!-- MAP SCRIPT -->
-<script>
-  function myMap() {
-	var element = document.getElementById("map");
 
-	var map = new google.maps.Map(element, {
-		center: new google.maps.LatLng(48.1391, 11.5802),
-		zoom: 11,
-		mapTypeId: "OSM",
-		mapTypeControlOptions: {
-			mapTypeIds: ["OSM"]
-		},
-		streetViewControl: false
-	});
-	
-	map.mapTypes.set("OSM", new google.maps.ImageMapType({
-		getTileUrl: function(coord, zoom) {
-			// See above example if you need smooth wrapping at 180th meridian
-			return "https://tile.openstreetmap.org/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
-		},
-		tileSize: new google.maps.Size(256, 256),
-		name: "OpenStreetMap",
-		maxZoom: 18
-	}));
-	var infoWindow = new google.maps.InfoWindow;
-	var marker;
-	var position = {
-		lat: document.getElementById('lat').value, 
-		lng: document.getElementById('lng').value
-	};
-	marker = new google.maps.Marker({
-		position: new google.maps.LatLng(position['lat'], position['lng']),
-		map: map,
-		draggable: true,
-	});
-	map.setCenter(new google.maps.LatLng(position['lat'], position['lng']));
-	map.setZoom(15);	
-		
-	var defaultBounds = new google.maps.LatLngBounds(
-		new google.maps.LatLng(position['lat'], position['lng']),
-	);
-
-	var options = {
-		bounds: defaultBounds
-	};
-
-	var geocoder = new google.maps.Geocoder;
-	getAddress(geocoder, marker);
-		
-	google.maps.event.addListener(marker,'dragend', function() {
-		getAddress(geocoder, marker);
-	});
-	// AUTOCOMPLETE OF SEARCHBOX AND PLOTTING OF MARKER
-		var searchBox = new google.maps.places.SearchBox(document.getElementById('autocomplete-address'),options);
-		google.maps.event.addListener(searchBox, 'places_changed', function() {
-		var places = searchBox.getPlaces();
-		var bounds = new google.maps.LatLngBounds();
-		var i, place;
-		for (i=0; place=places[i];i++) {
-			console.log(place.geometry.location);
-			bounds.extend(place.geometry.location);
-			marker.setPosition(place.geometry.location);
-			getAddress(geocoder, marker);
-			map.fitBounds(bounds);
-			map.setZoom(17);
-		}
-	});
-		
-	}
-	function getAddress(geocoder, marker) {
-		var latLng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
-		geocoder.geocode({'location': latLng}, function(results,status) {
-			if (status == 'OK') {
-				if (results[0]) {
-					// String address
-					var address = results[0].formatted_address;
-					document.getElementById('autocomplete-address').value = address
-					document.getElementById('lat').value = latLng['lat'];
-					document.getElementById('lng').value = latLng['lng'];
-				}else{
-					alert('No Results found');
-				}
-			}else{
-				alert('Geocoder not supported. ' + status);
-			}
-		});
-	}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqz6F8ER7tkcYIhbifDumCa01GgTIWKqE&libraries=places&callback=myMap" async differ></script>
 </html>
 <?php } ?>

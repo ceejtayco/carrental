@@ -176,6 +176,10 @@ $date="0000-00-00";
 												<a href="lenders.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Cancel this application')"> Cancel</a>
 											</td>
 		                                    <?php
+											}else{
+										?>
+											<td>N/A</td>
+										<?php
 											}
 										?>
 									

@@ -9,22 +9,15 @@ $query->bindParam(':email', $email, PDO::PARAM_STR);
 $query->bindParam(':password', $password, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-if($query->rowCount() > 0)
-{
-    if($results[0]->UserType == 0 && (strtotime($results[0]->verified_at) == strtotime('0000-00-00'))) {
-          echo "<script>alert('Your account has been denied.');</script>";
-          return;
-    } else if ($results[0]->UserType == 0 && ($results[0]->verified_at == null)) {
-         echo "<script>alert('Your account has not been verified yet.');</script>";
-    }
-    else {
-        $_SESSION['login']=$_POST['email'];
+if($query->rowCount() > 0){
+    
+$_SESSION['login']=$_POST['email'];
 $_SESSION['fname']=$results->FullName;
 $_SESSION['utype']=$results[0]->UserType;
 $_SESSION['uid']=$results[0]->id;
+$_SESSION['verified_at'] = $results[0]->verified_at;
 $currentpage=$_SERVER['REQUEST_URI'];
 echo "<script type='text/javascript'> document.location = '$currentpage'; </script>";
-    }
     
 
 } else{

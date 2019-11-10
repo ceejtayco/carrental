@@ -370,6 +370,44 @@ foreach($results as $result)
     }));
 
     var infoWindow = new google.maps.InfoWindow;
+
+    // LENDER MAP
+    var element_lender = document.getElementById("lenderMap");
+    var map_lender = new google.maps.Map(element_lender, {
+        center: new google.maps.LatLng(48.1391, 11.5802),
+        zoom: 13,
+        mapTypeId: "OSM",
+        mapTypeControlOptions: {
+            mapTypeIds: ["OSM"]
+        },
+        streetViewControl: false
+    });
+    var marker_lender = new google.maps.Marker({
+      position: new google.maps.LatLng(48.1391, 11.5802),
+      map: map_lender,
+      icon: {
+        url: 'https://img.icons8.com/plasticine/100/000000/marker.png', 
+        scaledSize: new google.maps.Size(50,50),
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(0,0)
+      },
+      title: 'Current Location',
+      draggable: true
+    });
+
+    map_lender.mapTypes.set("OSM", new google.maps.ImageMapType({
+      getTileUrl: function(coord, zoom) {
+          // See above example if you need smooth wrapping at 180th meridian
+          return "https://tile.openstreetmap.org/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+      },
+      tileSize: new google.maps.Size(256, 256),
+      name: "OpenStreetMap",
+      maxZoom: 30
+    }));
+    
+    var geocoder_lender = new google.maps.Geocoder;
+    var infoWindow_lender = new google.maps.InfoWindow;
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
@@ -439,6 +477,35 @@ foreach($results as $result)
             }
           }
         ?>
+
+        var pos_lender = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        marker_lender.setMap(null);
+        marker_lender = new google.maps.Marker({
+          position: pos_lender,
+          map: map_lender,
+          icon: {
+            url: 'https://img.icons8.com/plasticine/100/000000/marker.png', 
+            scaledSize: new google.maps.Size(50,50)
+          },
+          title: 'Current Location',
+          draggable: true
+        });
+        
+        infoWindow_lender.setPosition(pos_lender);
+        infoWindow_lender.setContent('Current Location');
+        infoWindow_lender.open(map_lender);
+        map_lender.setCenter(pos_lender);
+        map_lender.setZoom(13);
+
+        //   GEOCODER
+				getAddress(geocoder_lender, marker_lender);
+
+        google.maps.event.addListener(marker_lender, 'dragend', function() {
+					getAddress(geocoder_lender, marker_lender);
+				});
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
       });
@@ -450,7 +517,7 @@ foreach($results as $result)
     // MULTIPLE MARKERS
     var marker_vehicles;
     <?php
-      $sql = "SELECT vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null GROUP BY vehicle.VehiclesTitle;";
+      $sql = "SELECT user.*, vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblusers user inner join tblvehicles vehicle on user.id = vehicle.user_id inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null GROUP BY user.id ";
       $query = $dbh -> prepare($sql);
       $query->execute();
       $count=$query->rowCount();
@@ -475,19 +542,30 @@ foreach($results as $result)
         });
         google.maps.event.addListener(marker_vehicles, 'click', (function(marker_vehicles, i){
           return function() {
-            
             var contentString = '<div class="container text-center" id="infoWindowContainer" style="width:100%;">'
+            +'<p style="font-size: 14px;"><span class="fa fa-address-card"></span> <strong>Lender: <?php echo $vehicle->FullName; ?></strong> <span class="fa fa-check-circle" style="color: green;"></span></p>';
+            <?php
+            $sql_inner = "SELECT user.*, vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblusers user inner join tblvehicles vehicle on user.id = vehicle.user_id inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null";
+            $query_inner = $dbh->prepare($sql_inner);
+            $query_inner->execute();
+            $result_inner = $query_inner->fetchAll(PDO::FETCH_OBJ);
             
-            +'<img style="width:100%;" src="admin/img/vehicleimages/<?php echo htmlentities($vehicle->Vimage1) ?>" id="car_image">'
-            +'<hr>'
-            +'<p><strong><?php echo $vehicle->VehiclesTitle ?></strong></p>'
-            +'<p id="vehicle_details">&#187;<?php echo htmlentities($vehicle->BrandName) ?>&nbsp;Brand</p>'
-            +'<p id="vehicle_details">&#187;<?php echo htmlentities($vehicle->FuelType) ?>&nbsp;Type</p>'
-            +'<p id="vehicle_details">&#187;<?php echo htmlentities($vehicle->SeatingCapacity) ?> seater vehicle</p>'
-            +'<p id="vehicle_details">&#187;&nbsp;&#8369; <?php echo number_format(htmlentities($vehicle->PricePerDay),2) ?>/day</p>'
-            +'<hr><p id="vehicle_details">'+ distances[<?php echo $vehicle_count ?>]["distance"]+'KM away</p>'
-            +'<a href="vehical-details.php?vhid=<?php echo htmlentities($vehicle->id);?>" class="btn btn-primary btn-xs" id="btn_view_details">View Details</a>'
-            +'</div>'
+            foreach($result_inner as $vehicle_inner) {
+            ?>
+              contentString+='<img style="width:100%;" src="admin/img/vehicleimages/<?php echo htmlentities($vehicle_inner->Vimage1) ?>" id="car_image">'
+              
+              +'<hr>'
+              +'<p><strong><?php echo $vehicle_inner->VehiclesTitle ?></strong></p>'
+              +'<p id="vehicle_details">&#187;<?php echo htmlentities($vehicle_inner->BrandName) ?>&nbsp;Brand</p>'
+              +'<p id="vehicle_details">&#187;<?php echo htmlentities($vehicle_inner->FuelType) ?>&nbsp;Type</p>'
+              +'<p id="vehicle_details">&#187;<?php echo htmlentities($vehicle_inner->SeatingCapacity) ?> seater vehicle</p>'
+              +'<p id="vehicle_details">&#187;&nbsp;&#8369; <?php echo number_format(htmlentities($vehicle_inner->PricePerDay),2) ?>/day</p>'
+              +'<hr><p id="vehicle_details">'+ distances[<?php echo $vehicle_count ?>]["distance"]+'KM away</p>'
+              +'<a href="vehical-details.php?vhid=<?php echo htmlentities($vehicle_inner->id);?>" class="btn btn-primary btn-xs" id="btn_view_details">View Details >></a><br>';
+            <?php
+            }
+            ?>
+            contentString+='</div>'
             infoWindow.setContent(contentString);
             infoWindow.open(map, marker_vehicles);
             map.setCenter(marker_vehicles.getPosition());
@@ -499,84 +577,6 @@ foreach($results as $result)
       $vehicle_count++;    
       }
     ?>
-
-// LENDER MAP
-    var element_lender = document.getElementById("lenderMap");
-    var map_lender = new google.maps.Map(element_lender, {
-        center: new google.maps.LatLng(48.1391, 11.5802),
-        zoom: 13,
-        mapTypeId: "OSM",
-        mapTypeControlOptions: {
-            mapTypeIds: ["OSM"]
-        },
-        streetViewControl: false
-    });
-    var marker_lender = new google.maps.Marker({
-      position: new google.maps.LatLng(48.1391, 11.5802),
-      map: map_lender,
-      icon: {
-        url: 'https://img.icons8.com/plasticine/100/000000/marker.png', 
-        scaledSize: new google.maps.Size(50,50),
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(0,0)
-      },
-      title: 'Current Location',
-      draggable: true
-    });
-
-    map_lender.mapTypes.set("OSM", new google.maps.ImageMapType({
-      getTileUrl: function(coord, zoom) {
-          // See above example if you need smooth wrapping at 180th meridian
-          return "https://tile.openstreetmap.org/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
-      },
-      tileSize: new google.maps.Size(256, 256),
-      name: "OpenStreetMap",
-      maxZoom: 30
-    }));
-    
-    var geocoder_lender = new google.maps.Geocoder;
-    var infoWindow_lender = new google.maps.InfoWindow;
-    
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        marker_lender.setMap(null);
-        marker_lender = new google.maps.Marker({
-          position: pos,
-          map: map_lender,
-          icon: {
-            url: 'https://img.icons8.com/plasticine/100/000000/marker.png', 
-            scaledSize: new google.maps.Size(50,50)
-          },
-          title: 'Current Location',
-          draggable: true
-        });
-        
-        infoWindow_lender.setPosition(pos);
-        infoWindow_lender.setContent('Current Location');
-        infoWindow_lender.open(map_lender);
-        map_lender.setCenter(pos);
-        map_lender.setZoom(13);
-
-        //   GEOCODER
-				getAddress(geocoder_lender, marker_lender);
-
-        google.maps.event.addListener(marker_lender, 'dragend', function() {
-					getAddress(geocoder_lender, marker_lender);
-				});
-
-
-      }, function() {
-        handleLocationError(true, infoWindow_lender, map_lender.getCenter());
-      });
-      
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow_lender, map_lender.getCenter());
-    }
 
 		var defaultBounds_lender = new google.maps.LatLngBounds(
 			new google.maps.LatLng(7.3042, 126.0893),

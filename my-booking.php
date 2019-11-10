@@ -356,17 +356,19 @@ foreach($results as $result)
     }
 
     <?php
-       $sql = "SELECT UserName FROM admin WHERE id=1";
+       $sql = "SELECT vehicle.user_id as vehicle_user_id FROM tblvehicles vehicle INNER JOIN tblbooking booking ON vehicle.id = booking.VehicleId WHERE booking.id = :booking_id;";
        $query = $dbh->prepare($sql);
+       $query->bindParam(':booking_id', $_REQUEST['booking_id'], PDO::PARAM_STR);
        $query->execute();
        $results=$query->fetchAll(PDO::FETCH_OBJ);
     ?>
+    //alert("Rating: " + rating + "; Lender: " + <?php echo $results[0]->vehicle_user_id;?> + "; Booking ID: " + <?php echo $_REQUEST['booking_id']; ?>);
     $.ajax({
       type: "POST",
       url: "insert_rating.php",
       data: {
         rating: rating,
-        rental: "<?php echo $results[0]->UserName; ?>",
+        rental: "<?php echo $results[0]->vehicle_user_id;?>",
         booking_id: "<?php echo $_REQUEST['booking_id']; ?>",
         rate_type: 1
       },

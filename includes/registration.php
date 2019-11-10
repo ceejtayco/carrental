@@ -28,11 +28,7 @@ if(isset($_POST['signup'])){
   $query->execute();
 
 
-  if ($type== "0") {
-    echo "<script>alert('Registration Success! Kindly wait until an administrator approves your registration.');</script>";
-  }else{
     echo "<script>alert('Registration Success! You may now log in.');</script>";
-  }
 
 }
 
