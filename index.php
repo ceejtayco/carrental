@@ -517,7 +517,7 @@ foreach($results as $result)
     // MULTIPLE MARKERS
     var marker_vehicles;
     <?php
-      $sql = "SELECT user.*, vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblusers user inner join tblvehicles vehicle on user.id = vehicle.user_id inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null GROUP BY user.id ";
+      $sql = "SELECT user.FullName as Fullname, user.id as id_user, user.*,vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblusers user inner join tblvehicles vehicle on user.id = vehicle.user_id inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null GROUP BY user.id ";
       $query = $dbh -> prepare($sql);
       $query->execute();
       $count=$query->rowCount();
@@ -545,8 +545,9 @@ foreach($results as $result)
             var contentString = '<div class="container text-center" id="infoWindowContainer" style="width:100%;">'
             +'<p style="font-size: 14px;"><span class="fa fa-address-card"></span> <strong>Lender: <?php echo $vehicle->FullName; ?></strong> <span class="fa fa-check-circle" style="color: green;"></span></p>';
             <?php
-            $sql_inner = "SELECT user.*, vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblusers user inner join tblvehicles vehicle on user.id = vehicle.user_id inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null";
+            $sql_inner = "SELECT user.*, vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblusers user inner join tblvehicles vehicle on user.id = vehicle.user_id inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE user.id = :id and ((SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null)";
             $query_inner = $dbh->prepare($sql_inner);
+            $query_inner->bindParam(':id',$vehicle->id_user, PDO::PARAM_STR);
             $query_inner->execute();
             $result_inner = $query_inner->fetchAll(PDO::FETCH_OBJ);
             

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 09, 2019 at 09:43 PM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.11
+-- Host: 127.0.0.1:3306
+-- Generation Time: Nov 10, 2019 at 02:52 PM
+-- Server version: 10.2.27-MariaDB
+-- PHP Version: 7.2.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `carrental`
+-- Database: `u655417478_carrental`
 --
 
 -- --------------------------------------------------------
@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
   `UserName` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
-  `updationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+  `updationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -56,8 +56,15 @@ CREATE TABLE `tblbooking` (
   `ToDate` date DEFAULT NULL,
   `message` varchar(255) DEFAULT NULL,
   `Status` int(11) DEFAULT NULL,
-  `PostingDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `PostingDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblbooking`
+--
+
+INSERT INTO `tblbooking` (`id`, `userEmail`, `VehicleId`, `FromDate`, `ToDate`, `message`, `Status`, `PostingDate`) VALUES
+(3, 'ceejltayco@gmail.com', 38, '2019-11-14', '2019-11-16', 'Rent for business trip.', 1, '2019-11-10 14:48:19');
 
 -- --------------------------------------------------------
 
@@ -68,8 +75,8 @@ CREATE TABLE `tblbooking` (
 CREATE TABLE `tblbrands` (
   `id` int(11) NOT NULL,
   `BrandName` varchar(120) NOT NULL,
-  `CreationDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `CreationDate` timestamp NULL DEFAULT current_timestamp(),
+  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -106,7 +113,7 @@ CREATE TABLE `tblconfirmation` (
 
 CREATE TABLE `tblcontactusinfo` (
   `id` int(11) NOT NULL,
-  `Address` tinytext,
+  `Address` tinytext DEFAULT NULL,
   `EmailId` varchar(255) DEFAULT NULL,
   `ContactNo` char(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -129,8 +136,8 @@ CREATE TABLE `tblcontactusquery` (
   `name` varchar(100) DEFAULT NULL,
   `EmailId` varchar(120) DEFAULT NULL,
   `ContactNumber` char(11) DEFAULT NULL,
-  `Message` longtext,
-  `PostingDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Message` longtext DEFAULT NULL,
+  `PostingDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -201,7 +208,7 @@ CREATE TABLE `tblratings` (
 CREATE TABLE `tblsubscribers` (
   `id` int(11) NOT NULL,
   `SubscriberEmail` varchar(120) DEFAULT NULL,
-  `PostingDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `PostingDate` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -214,7 +221,7 @@ CREATE TABLE `tbltestimonial` (
   `id` int(11) NOT NULL,
   `UserEmail` varchar(100) NOT NULL,
   `Testimonial` mediumtext NOT NULL,
-  `PostingDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `PostingDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -238,8 +245,8 @@ CREATE TABLE `tblusers` (
   `Address` varchar(255) DEFAULT NULL,
   `City` varchar(100) DEFAULT NULL,
   `Country` varchar(100) DEFAULT NULL,
-  `RegDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `RegDate` timestamp NULL DEFAULT current_timestamp(),
+  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -248,7 +255,9 @@ CREATE TABLE `tblusers` (
 
 INSERT INTO `tblusers` (`id`, `verified_at`, `UserType`, `FullName`, `EmailId`, `Password`, `ContactNo`, `LenderLat`, `LenderLng`, `dob`, `Address`, `City`, `Country`, `RegDate`, `UpdationDate`) VALUES
 (93, '2019-11-10', '0', 'Lender Demo 1', 'lender1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.0783746, 125.55014419999998, NULL, NULL, NULL, NULL, '2019-11-09 17:43:45', '2019-11-09 17:46:39'),
-(94, NULL, '1', 'Ceej Tayco', 'ceejltayco@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 0, 0, NULL, NULL, NULL, NULL, '2019-11-09 17:44:25', NULL);
+(94, NULL, '1', 'Ceej Tayco', 'ceejltayco@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 0, 0, NULL, NULL, NULL, NULL, '2019-11-09 17:44:25', NULL),
+(95, '2019-11-10', '0', 'Lender Demo 2', 'lender2@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.014706483897799, 125.49596476718136, NULL, NULL, NULL, NULL, '2019-11-10 06:37:55', '2019-11-10 06:39:31'),
+(96, NULL, '0', 'Lender Demo 3', 'lender3@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.053109999999999, 125.5589463, NULL, NULL, NULL, NULL, '2019-11-10 07:30:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -261,7 +270,7 @@ CREATE TABLE `tblvehicles` (
   `user_id` int(11) NOT NULL,
   `VehiclesTitle` varchar(150) DEFAULT NULL,
   `VehiclesBrand` int(11) DEFAULT NULL,
-  `VehiclesOverview` longtext,
+  `VehiclesOverview` longtext DEFAULT NULL,
   `PricePerDay` int(11) DEFAULT NULL,
   `FuelType` varchar(100) DEFAULT NULL,
   `ModelYear` int(6) DEFAULT NULL,
@@ -283,8 +292,8 @@ CREATE TABLE `tblvehicles` (
   `CentralLocking` int(11) DEFAULT NULL,
   `CrashSensor` int(11) DEFAULT NULL,
   `LeatherSeats` int(11) DEFAULT NULL,
-  `RegDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `RegDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `lat` double DEFAULT NULL,
   `lng` double DEFAULT NULL,
   `vehicle_or` varchar(120) DEFAULT NULL,
@@ -296,7 +305,9 @@ CREATE TABLE `tblvehicles` (
 --
 
 INSERT INTO `tblvehicles` (`id`, `user_id`, `VehiclesTitle`, `VehiclesBrand`, `VehiclesOverview`, `PricePerDay`, `FuelType`, `ModelYear`, `SeatingCapacity`, `Vimage1`, `Vimage2`, `Vimage3`, `Vimage4`, `Vimage5`, `AirConditioner`, `PowerDoorLocks`, `AntiLockBrakingSystem`, `BrakeAssist`, `PowerSteering`, `DriverAirbag`, `PassengerAirbag`, `PowerWindows`, `CDPlayer`, `CentralLocking`, `CrashSensor`, `LeatherSeats`, `RegDate`, `UpdationDate`, `lat`, `lng`, `vehicle_or`, `vehicle_cr`) VALUES
-(36, 93, 'Fortuner', 5, 'Toyota Fortuner Brand new 2019 White', 2500, 'Diesel', 2019, 10, '0_578_872_0_70_http _cdni.autocarindia.com_ExtraImages_20160803053259_fortx.jpg', '2015_Toyota_Fortuner_(New_Zealand).jpg', 'groupj_toyota_fortuner_nam_thr.jpg', 'selection_552-500x500.png', '', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, '2019-11-09 19:28:53', '2019-11-09 20:02:08', 7.0783746, 125.55014419999998, 'Used-Car-Sales-Receipt-Sample.jpg', 'Certificate-of-Registration.jpg');
+(37, 93, 'Fortuner', 5, 'Toyota Fortuner Brand new (White)', 5000, 'Diesel', 2019, 20, '2015_Toyota_Fortuner_(New_Zealand).jpg', '2018_Toyota_Fortuner_(KUN160R)_Crusade_wagon_(2018-09-28)_01.jpg', '2018_Toyota_Fortuner_(KUN160R)_Crusade_wagon_(2018-09-28)_02.jpg', '1488710.jpg', '', 1, 1, 1, NULL, 1, 1, 1, NULL, 1, 1, 1, 1, '2019-11-10 09:17:40', '2019-11-10 13:25:53', 7.0783746, 125.55014419999998, 'orcr-main-1546929571.jpg', 'registration-certificate-card-haryana-2.jpg'),
+(38, 93, 'Rush', 5, 'Toyota Rush Brand New', 2500, 'Diesel', 2019, 10, 'maxresdefault.jpg', 'Toyota Rush Exterior-4.jpg', 'Toyota Rush Exterior-16.jpg', 'toyota_rush-saf-cover.jpeg', 'toyota-rush-front-angle-low-view-721039.jpg', 1, 1, NULL, NULL, 1, 1, 1, 1, 1, 1, 1, NULL, '2019-11-10 09:52:35', NULL, 7.0783746, 125.55014419999998, 'orcr-main-1546929571.jpg', 'registration-certificate-card-haryana-2.jpg'),
+(39, 95, 'Hilux', 5, 'Toyota Hilux Brand New 2019 White', 2500, 'Diesel', 2019, 20, '2017-TOYOTA-HILUX-used-2214-96753-1.jpg', '8039060_1.jpg', 'f07vkmut8dbv4rukt7vzijsc5.jpg', 'IMG_7407.jpg', '', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, '2019-11-10 14:04:02', NULL, 7.014706483897799, 125.49596476718136, 'Official Receipt.jpg', 'Certificate-of-registration.jpg');
 
 --
 -- Indexes for dumped tables
@@ -356,9 +367,9 @@ ALTER TABLE `tblpages`
 --
 ALTER TABLE `tblratings`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `rental_id` (`rental_id`),
-  ADD KEY `renter_id` (`renter_id`),
-  ADD KEY `booking_Id` (`booking_Id`);
+  ADD KEY `booking_Id` (`booking_Id`),
+  ADD KEY `rental_id` (`rental_id`,`renter_id`) USING BTREE,
+  ADD KEY `tblratings_ibfk_2` (`renter_id`);
 
 --
 -- Indexes for table `tblsubscribers`
@@ -398,7 +409,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `tblbooking`
 --
 ALTER TABLE `tblbooking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tblbrands`
@@ -410,7 +421,7 @@ ALTER TABLE `tblbrands`
 -- AUTO_INCREMENT for table `tblconfirmation`
 --
 ALTER TABLE `tblconfirmation`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tblcontactusinfo`
@@ -428,7 +439,7 @@ ALTER TABLE `tblcontactusquery`
 -- AUTO_INCREMENT for table `tbllocation`
 --
 ALTER TABLE `tbllocation`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tblpages`
@@ -440,31 +451,31 @@ ALTER TABLE `tblpages`
 -- AUTO_INCREMENT for table `tblratings`
 --
 ALTER TABLE `tblratings`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblsubscribers`
 --
 ALTER TABLE `tblsubscribers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbltestimonial`
 --
 ALTER TABLE `tbltestimonial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tblusers`
 --
 ALTER TABLE `tblusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `tblvehicles`
 --
 ALTER TABLE `tblvehicles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables
