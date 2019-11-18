@@ -50,6 +50,7 @@ $msg="Vehicle record deleted successfully";
 	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/manage-vehicles.css">
   <style>
 		.errorWrap {
     padding: 10px;
@@ -99,7 +100,9 @@ $msg="Vehicle record deleted successfully";
 											<th>Price Per day</th>
 											<th>Fuel Type</th>
 											<th>Model Year</th>
-											<th>Action</th>
+											<!-- <th>Action</th> -->
+											<th>OR</th>
+											<th>CR</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -110,13 +113,15 @@ $msg="Vehicle record deleted successfully";
 											<th>Price Per day</th>
 											<th>Fuel Type</th>
 											<th>Model Year</th>
-											<th>Action</th>
+											<!-- <th>Action</th> -->
+											<th>OR</th>
+											<th>CR</th>
 										</tr>
 										</tr>
 									</tfoot>
 									<tbody>
 
-<?php $sql = "SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.PricePerDay,tblvehicles.FuelType,tblvehicles.ModelYear,tblvehicles.id from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
+<?php $sql = "SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.PricePerDay,tblvehicles.FuelType,tblvehicles.ModelYear,tblvehicles.id, tblvehicles.vehicle_or, tblvehicles.vehicle_cr from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -132,8 +137,16 @@ foreach($results as $result)
 											<td><?php echo htmlentities($result->PricePerDay);?></td>
 											<td><?php echo htmlentities($result->FuelType);?></td>
 												<td><?php echo htmlentities($result->ModelYear);?></td>
-		<td><a href="edit-vehicle.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-<a href="manage-vehicles.php?del=<?php echo $result->id; ?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close" id="del"></i></a></td>
+		<!-- <td><a href="edit-vehicle.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+<a href="manage-vehicles.php?del=<?php echo $result->id; ?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close" id="del"></i></a></td> -->
+											<td>
+												<a href="manage-vehicles.php?vehicle_or=<?php echo $result->id; ?>" class="btn btn-primary" id="vehicle_or"><span class="fa fa-image"></span> &nbsp;&nbsp;View OR</a>
+												<button type="button" id="manage-vehicles-trigger-me-or" data-toggle="modal" data-target="#view-or-modal"></button>
+											</td>
+											<td>
+												<a href="manage-vehicles.php?vehicle_cr=<?php echo $result->id; ?>" class="btn btn-primary" id="vehicle_cr"><span class="fa fa-image"></span> &nbsp;&nbsp;View CR</a>
+												<button type="button" id="manage-vehicles-trigger-me-cr" data-toggle="modal" data-target="#view-cr-modal"></button>
+											</td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
 										
@@ -154,6 +167,61 @@ foreach($results as $result)
 		</div>
 	</div>
 
+	
+
+	<!-- OR MODAL -->
+	<div class="modal fade" id="view-or-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal-title-or"><strong>Vehicle OR Image</strong></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-button-modal-or">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<?php
+					$sql = "SELECT vehicle_or FROM tblvehicles WHERE id = :vehicle_id";
+					$query = $dbh->prepare($sql);
+					$query->bindParam(':vehicle_id',$_REQUEST['vehicle_or'], PDO::PARAM_STR);
+					$query->execute();
+					$result = $query->fetchAll(PDO::FETCH_OBJ);
+				?>
+				<img src="img/documents/<?php echo htmlentities($result[0]->vehicle_or);?>" alt="vehicle or" id="vehicle_image_or" style="display: block; width: 550px; height: 500px; margin: auto; padding: auto; border: 1px solid black;">
+			</div>
+			
+			</div>
+		</div>
+	</div>
+	<!-- END OR MODAL -->
+
+
+	<!-- CR MODAL -->
+	<div class="modal fade" id="view-cr-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal-title-cr"><strong>Vehicle CR Image</strong></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-button-modal-cr">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<?php
+					$sql = "SELECT vehicle_cr FROM tblvehicles WHERE id = :vehicle_id";
+					$query = $dbh->prepare($sql);
+					$query->bindParam(':vehicle_id',$_REQUEST['vehicle_cr'], PDO::PARAM_STR);
+					$query->execute();
+					$result = $query->fetchAll(PDO::FETCH_OBJ);
+				?>
+				<img src="img/documents/<?php echo htmlentities($result[0]->vehicle_cr);?>" alt="vehicle cr" id="vehicle_image_cr" style="display: block; width: 550px; height: 500px; margin: auto; padding: auto; border: 1px solid black;">
+			</div>
+			
+			</div>
+		</div>
+	</div>
+	<!-- END CR MODAL -->
+
 	<!-- Loading Scripts -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap-select.min.js"></script>
@@ -164,6 +232,23 @@ foreach($results as $result)
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+
 </body>
+<script>
+	<?php
+		if(isset($_REQUEST['vehicle_or'])) {
+	?>
+		$('#manage-vehicles-trigger-me-or').click();
+	<?php
+		}
+
+		if(isset($_REQUEST['vehicle_cr'])){
+	?>
+		$('#manage-vehicles-trigger-me-cr').click();
+	<?php
+		}
+	?>
+
+</script>
 </html>
 <?php } ?>

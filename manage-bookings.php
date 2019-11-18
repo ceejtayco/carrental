@@ -78,6 +78,8 @@
 	<link rel="stylesheet" href="admin/css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="admin/css/style.css">
+	<!-- Manage Bookings CSS -->
+	<link rel="stylesheet" href="assets/css/manage-bookings.css">
   <style>
 		.errorWrap {
     padding: 10px;
@@ -222,7 +224,7 @@
 											}else if($result->Status == 2){
 										?>
 											<td>
-												<a href="manage-bookings.php?aeid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Confirm this booking')"> Confirm</a>
+												<p>Cancelled</p>
 											</td>
 										<?php
 											}else if($result->Status == 3) {
