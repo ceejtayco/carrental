@@ -1,12 +1,12 @@
-#vehicle_or, #vehicle_cr {
+#lender_or, #lender_cr {
     display: block;
-    width: 70px;
-    height: 30px;
+    width: 100px;
+    height: 40px;
     margin: auto;
-    padding: 5px;
+    padding: 10px;
 }
 
-#manage-vehicles-trigger-me-or,#manage-vehicles-trigger-me-cr {
+#lender-trigger-me-or,#lender-trigger-me-cr {
     display: block;
     visibility: hidden;
 }

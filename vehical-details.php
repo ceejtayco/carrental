@@ -12,9 +12,8 @@ $status=0;
 $vhid=$_GET['vhid'];
 
 
-
 //Check for duplicate schedules
-$checksql = "SELECT id FROM tblbooking WHERE FromDate = :from  AND ToDate= :to AND (status != 3 OR status != 2)";
+$checksql = "SELECT id FROM tblbooking WHERE FromDate = :from  AND ToDate= :to AND (status = 1 OR status = 0)";
 $query= $dbh -> prepare($checksql);
 $query->bindParam(':from', $fromdate, PDO::PARAM_STR);
 $query->bindParam(':to', $todate, PDO::PARAM_STR);
@@ -25,7 +24,7 @@ if($query->rowCount() > 0) {
 }
 else {
 
-if ($todate <= $fromdate) {
+if ($todate < $fromdate) {
      echo "<script>alert('Booking schedule is invalid. Please choose a sensible date.');</script>";
     return;
 }
@@ -520,4 +519,5 @@ foreach($results as $result)
 <script src="assets/js/owl.carousel.min.js"></script>
 
 </body>
+
 </html>

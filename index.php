@@ -2,7 +2,6 @@
 session_start();
 include('includes/config.php');
 error_reporting(0);
-
 ?>
 
 <!DOCTYPE HTML>
@@ -114,7 +113,7 @@ $mobile = false;
           
           <?php 
           //Query for Listing count
-          $sql = "SELECT vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null GROUP BY vehicle.VehiclesTitle;";
+          $sql = "SELECT vehicle.*,user.*, user.id as u_id, brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand inner join tblusers user on vehicle.user_id = user.id left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null and user.verified_at is not null group by vehicle.VehiclesTitle;";
           $query = $dbh -> prepare($sql);
           $query->bindParam(':vhid',$vhid, PDO::PARAM_STR);
           $query->execute();
@@ -125,7 +124,7 @@ $mobile = false;
           </div>
         </div>
 
-<?php $sql = "SELECT vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null GROUP BY vehicle.VehiclesTitle order by vehicle.id desc";
+<?php $sql = "SELECT vehicle.*, vehicle.id as v_id, user.*, user.id as u_id, brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand inner join tblusers user on vehicle.user_id = user.id left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null and user.verified_at is not null;";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -138,14 +137,14 @@ foreach($results as $result)
           <div class="product-listing-img"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="Image" /> </a> 
           </div>
           <div class="product-listing-content">
-            <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h5>
+            <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->v_id);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h5>
             <p class="list-price">&#8369; <?php echo number_format(htmlentities($result->PricePerDay),2);?></p>
             <ul>
               <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity);?> seats</li>
               <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear);?> model</li>
               <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType);?></li>
             </ul>
-            <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+            <a href="vehical-details.php?vhid=<?php echo htmlentities($result->v_id);?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
           </div>
         </div>
       <?php }} ?>
@@ -199,7 +198,7 @@ foreach($results as $result)
           </div>
           <div class="recent_addedcars">
             <ul>
-<?php $sql = "SELECT vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null GROUP BY vehicle.VehiclesTitle order by id desc limit 4";
+<?php $sql = "SELECT vehicle.*,user.*, user.id as u_id, brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand inner join tblusers user on vehicle.user_id = user.id left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null and user.verified_at is not null order by id desc limit 4;";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -208,7 +207,6 @@ if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {  ?>
-
               <li class="gray-bg">
                 <div class="recent_post_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
                 <div class="recent_post_title"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a>
@@ -358,7 +356,6 @@ foreach($results as $result)
       },
       title: 'Current Location'
     });
-
     map.mapTypes.set("OSM", new google.maps.ImageMapType({
       getTileUrl: function(coord, zoom) {
           // See above example if you need smooth wrapping at 180th meridian
@@ -368,9 +365,7 @@ foreach($results as $result)
       name: "OpenStreetMap",
       maxZoom: 30
     }));
-
     var infoWindow = new google.maps.InfoWindow;
-
     // LENDER MAP
     var element_lender = document.getElementById("lenderMap");
     var map_lender = new google.maps.Map(element_lender, {
@@ -394,7 +389,6 @@ foreach($results as $result)
       title: 'Current Location',
       draggable: true
     });
-
     map_lender.mapTypes.set("OSM", new google.maps.ImageMapType({
       getTileUrl: function(coord, zoom) {
           // See above example if you need smooth wrapping at 180th meridian
@@ -407,7 +401,6 @@ foreach($results as $result)
     
     var geocoder_lender = new google.maps.Geocoder;
     var infoWindow_lender = new google.maps.InfoWindow;
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
@@ -444,8 +437,6 @@ foreach($results as $result)
               $("#click-trigger").click();
             }
         });
-
-
         // GET LOCATION OF CUSTOMER AND SEND TO LENDER
         <?php
           if(isset($_SESSION['login'])) {
@@ -454,7 +445,6 @@ foreach($results as $result)
             $query->bindParam(':useremail',$_SESSION['login'], PDO::PARAM_STR);
             $query->execute();
             $result = $query->fetchAll(PDO::FETCH_OBJ);
-
             for($i = 0; $i < $query->rowCount(); $i++) {
               $sql_check_location_inserted = "SELECT booking_id FROM tbllocation WHERE booking_id = :booking_id";
               $query_check_location_inserted = $dbh->prepare($sql_check_location_inserted);
@@ -477,7 +467,6 @@ foreach($results as $result)
             }
           }
         ?>
-
         var pos_lender = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
@@ -499,10 +488,8 @@ foreach($results as $result)
         infoWindow_lender.open(map_lender);
         map_lender.setCenter(pos_lender);
         map_lender.setZoom(13);
-
         //   GEOCODER
 				getAddress(geocoder_lender, marker_lender);
-
         google.maps.event.addListener(marker_lender, 'dragend', function() {
 					getAddress(geocoder_lender, marker_lender);
 				});
@@ -517,7 +504,7 @@ foreach($results as $result)
     // MULTIPLE MARKERS
     var marker_vehicles;
     <?php
-      $sql = "SELECT user.FullName as Fullname, user.id as id_user, user.*,vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblusers user inner join tblvehicles vehicle on user.id = vehicle.user_id inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null GROUP BY user.id ";
+      $sql = "SELECT vehicle.*,user.*, user.id as u_id, brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand inner join tblusers user on vehicle.user_id = user.id left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null and user.verified_at is not null group by u_id";
       $query = $dbh -> prepare($sql);
       $query->execute();
       $count=$query->rowCount();
@@ -540,17 +527,17 @@ foreach($results as $result)
           },
           draggable: false
         });
+       
         google.maps.event.addListener(marker_vehicles, 'click', (function(marker_vehicles, i){
           return function() {
-            var contentString = '<div class="container text-center" id="infoWindowContainer" style="width:100%;">'
+            var contentString = '<div class="container text-center" id="infoWindowContainer" style="width:300px;">'
             +'<p style="font-size: 14px;"><span class="fa fa-address-card"></span> <strong>Lender: <?php echo $vehicle->FullName; ?></strong> <span class="fa fa-check-circle" style="color: green;"></span></p>';
             <?php
-            $sql_inner = "SELECT user.*, vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblusers user inner join tblvehicles vehicle on user.id = vehicle.user_id inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE user.id = :id and ((SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null)";
+            $sql_inner = "SELECT user.*, vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblusers user inner join tblvehicles vehicle on user.id = vehicle.user_id inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE user.id = :id and ((SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null) and user.verified_at is not null group by vehicle.id";
             $query_inner = $dbh->prepare($sql_inner);
-            $query_inner->bindParam(':id',$vehicle->id_user, PDO::PARAM_STR);
+            $query_inner->bindParam(':id',$vehicle->user_id, PDO::PARAM_STR);
             $query_inner->execute();
             $result_inner = $query_inner->fetchAll(PDO::FETCH_OBJ);
-            
             foreach($result_inner as $vehicle_inner) {
             ?>
               contentString+='<img style="width:100%;" src="admin/img/vehicleimages/<?php echo htmlentities($vehicle_inner->Vimage1) ?>" id="car_image">'
@@ -561,9 +548,11 @@ foreach($results as $result)
               +'<p id="vehicle_details">&#187;<?php echo htmlentities($vehicle_inner->FuelType) ?>&nbsp;Type</p>'
               +'<p id="vehicle_details">&#187;<?php echo htmlentities($vehicle_inner->SeatingCapacity) ?> seater vehicle</p>'
               +'<p id="vehicle_details">&#187;&nbsp;&#8369; <?php echo number_format(htmlentities($vehicle_inner->PricePerDay),2) ?>/day</p>'
-              +'<hr><p id="vehicle_details">'+ distances[<?php echo $vehicle_count ?>]["distance"]+'KM away</p>'
+              +'<hr><p id="vehicle_details">'+ distances[<?php echo $vehicle_count; ?>]["distance"]+'KM away</p>'
               +'<a href="vehical-details.php?vhid=<?php echo htmlentities($vehicle_inner->id);?>" class="btn btn-primary btn-xs" id="btn_view_details">View Details >></a><br>';
+             
             <?php
+             $vehicle_count++;
             }
             ?>
             contentString+='</div>'
@@ -575,14 +564,12 @@ foreach($results as $result)
         })(marker_vehicles, i));
         
     <?php
-      $vehicle_count++;    
+         
       }
     ?>
-
 		var defaultBounds_lender = new google.maps.LatLngBounds(
 			new google.maps.LatLng(7.3042, 126.0893),
 		);
-
 		var options_lender = {
 			bounds: defaultBounds_lender
 		};
@@ -596,7 +583,6 @@ foreach($results as $result)
 			for (i=0; place=places[i];i++) {
 				console.log(place.geometry.location);
 				bounds.extend(place.geometry.location);
-
 				marker_lender.setPosition(place.geometry.location);
         getAddress(geocoder_lender, marker_lender);
 				map_lender.fitBounds(bounds);
@@ -604,7 +590,6 @@ foreach($results as $result)
 			}
 		});
   }
-
   function getAddress(geocoder_lender, marker) {
     var latLng = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
 		geocoder_lender.geocode({'location': latLng}, function(results,status) {
@@ -641,14 +626,13 @@ foreach($results as $result)
           console.log(sort_distance);
           <?php 
             //Query for Listing count
-            $sql = "SELECT vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null GROUP BY vehicle.VehiclesTitle;";
+            $sql = "SELECT vehicle.*, vehicle.id as v_id, user.*, user.id as u_id, brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand inner join tblusers user on vehicle.user_id = user.id left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null and user.verified_at is not null group by vehicle.VehiclesTitle;";
             $query = $dbh -> prepare($sql);
             $query->bindParam(':vhid',$vhid, PDO::PARAM_STR);
             $query->execute();
             $results=$query->fetchAll(PDO::FETCH_OBJ);
             $cnt=$query->rowCount();
           ?>
-
           var changeResults = ''
           +'<div class="result-sorting-wrapper">'
           +'<div class="sorting-count">'
@@ -674,6 +658,7 @@ foreach($results as $result)
             +'<a href="vehical-details.php?vhid='+sort_distance[index_count]["id"]+'" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>'
             +'</div>'
             +'</div>';
+            
           }
           
           changeResults = changeResults + '</div>';
@@ -681,7 +666,6 @@ foreach($results as $result)
         }
     });  
   }
-
   // SORT FUNCTION FOR SORTING DISTANCES
   function sortByProperty(property){  
     return function(a,b){  
@@ -693,7 +677,6 @@ foreach($results as $result)
         return 0;  
     }  
   }
-
   $("#click-trigger").on('click', function() {
     changeResults();
   });
@@ -704,7 +687,6 @@ foreach($results as $result)
       $query->bindParam(':email_id',$_SESSION['login'], PDO::PARAM_STR);
       $query->execute();
       $result = $query->fetchAll(PDO::FETCH_OBJ);
-
       if($query->rowCount() != 0) {
         $open_modal = false;
         for($index = 0; $index < $query->rowCount(); $index++) {
@@ -712,13 +694,11 @@ foreach($results as $result)
           $query_confirm_modal = $dbh -> prepare($sql_confirm_modal);
           $query_confirm_modal->bindParam(':booking_id',$result[$index]->booking_id, PDO::PARAM_STR);
           $query_confirm_modal->execute();
-
           if($query_confirm_modal->rowCount() == 0) {
             $open_modal = true;
           }
           
         }
-
         if($open_modal) {
   ?>
           $("#trigger-confirmation-modal").click();
@@ -777,7 +757,6 @@ foreach($results as $result)
     <?php
       }
     ?>
-
   
 </script>
 

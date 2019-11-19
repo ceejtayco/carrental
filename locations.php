@@ -1,11 +1,14 @@
 <?php
-    session_start();
-    error_reporting(0);
-    include('includes/config.php');
-    if(strlen($_SESSION['alogin'])==0){	
-        header('location:index.php');
-    }
-?>
+session_start();
+error_reporting(0);
+include('includes/config.php');
+	if(strlen($_SESSION['login'])==0 || ($_SESSION['utype'] != 0)) 
+	{	
+header('location:index.php');
+}else{
+
+
+ ?>
 
 <!doctype html>
 <html lang="en" class="no-js">
@@ -18,28 +21,25 @@
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
 	
-	<title>Car Rental Portal |Admin Manage testimonials   </title>
+	<title>EZRent | View Locations   </title>
 
 	<!-- Font awesome -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="admin/css/font-awesome.min.css">
 	<!-- Sandstone Bootstrap CSS -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="admin/css/bootstrap.min.css">
 	<!-- Bootstrap Datatables -->
-	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="admin/css/dataTables.bootstrap.min.css">
 	<!-- Bootstrap social button library -->
-	<link rel="stylesheet" href="css/bootstrap-social.css">
+	<link rel="stylesheet" href="admin/css/bootstrap-social.css">
 	<!-- Bootstrap select -->
-	<link rel="stylesheet" href="css/bootstrap-select.css">
+	<link rel="stylesheet" href="admin/css/bootstrap-select.css">
 	<!-- Bootstrap file input -->
-	<link rel="stylesheet" href="css/fileinput.min.css">
+	<link rel="stylesheet" href="admin/css/fileinput.min.css">
 	<!-- Awesome Bootstrap checkbox -->
-	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
+	<link rel="stylesheet" href="admin/css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
-	<link rel="stylesheet" href="css/style.css">
-
-	<link rel="stylesheet" href="css/viewlocations.css">
-	
-	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
+	<link rel="stylesheet" href="admin/css/style.css">
+	<link rel="stylesheet" href="admin/css/viewlocations.css">
   <style>
 		.errorWrap {
     padding: 10px;
@@ -58,25 +58,27 @@
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 }
 		</style>
+		
 
 </head>
 
 <body>
-	<?php include('includes/header.php');?>
 
-	<div class="ts-main-content">
-		<?php include('includes/leftbar.php');?>
-		<div class="content-wrapper">
+	<?php include('alt_includes/header.php');?>
+	
+	<div class="ts-main-content" style="padding:50px;">
+		<div class="container-text">
+		</div>
 			<div class="container-fluid">
 
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">View Customer's Location</h2>
+						<h2 class="page-title">View Customers Location</h2>
 
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Customer Locations</div>
+							<div class="panel-heading">Location Details</div>
 							<div class="panel-body">
 							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
@@ -104,8 +106,9 @@
 									</tfoot>
 									<tbody>
 
-									<?php $sql = "SELECT location.booking_id, user.FullName, booking.userEmail, vehicle.VehiclesTitle, booking.FromDate, booking.ToDate, booking.Status as booking_status FROM tbllocation location INNER JOIN tblbooking booking ON location.booking_id = booking.id INNER JOIN tblvehicles vehicle ON booking.VehicleId = vehicle.id INNER JOIN tblusers user ON user.EmailId = booking.userEmail order by booking_id desc";
+									<?php $sql = "SELECT location.booking_id, user.FullName, booking.userEmail, vehicle.VehiclesTitle, booking.FromDate, booking.ToDate, booking.Status as booking_status FROM tbllocation location INNER JOIN tblbooking booking ON location.booking_id = booking.id INNER JOIN tblvehicles vehicle ON booking.VehicleId = vehicle.id INNER JOIN tblusers user ON user.EmailId = booking.userEmail WHERE vehicle.user_id = :user_id order by booking_id desc";
 										$query = $dbh -> prepare($sql);
+										$query->bindParam(':user_id',$_SESSION['uid'], PDO::PARAM_STR);
 										$query->execute();
                                         $results=$query->fetchAll(PDO::FETCH_OBJ);
                                         $count = 1;
@@ -162,8 +165,6 @@
 		</div>
 	</div>
 
-
-
 	<!-- MODAL FOR VIEWING LOCATIONS -->
 	<div class="modal fade w-100" tabindex="-1" role="dialog" id="locationModal" aria-hidden="true">
 		<div class="modal-dialog" role="document" id="locationDialog">
@@ -185,19 +186,23 @@
 				</div>
 			</div>
 		</div>
-	</div>									
+	</div>							
+	<!-- END OF MODAL -->
+	
 	<!-- Loading Scripts -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap-select.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.dataTables.min.js"></script>
-	<script src="js/dataTables.bootstrap.min.js"></script>
-	<script src="js/Chart.min.js"></script>
-	<script src="js/fileinput.js"></script>
-	<script src="js/chartData.js"></script>
-	<script src="js/main.js"></script>
-	<!-- GOOGLE MAPS API -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqz6F8ER7tkcYIhbifDumCa01GgTIWKqE&callback=myMap" async differ></script>
+	<script src="admin/js/jquery.min.js"></script>
+	<script src="admin/js/bootstrap-select.min.js"></script>
+	<script src="admin/js/bootstrap.min.js"></script>
+	<script src="admin/js/jquery.dataTables.min.js"></script>
+	<script src="admin/js/dataTables.bootstrap.min.js"></script>
+	<script src="admin/js/Chart.min.js"></script>
+	<script src="admin/js/fileinput.js"></script>
+	<script src="admin/js/chartData.js"></script>
+	<script src="admin/js/main.js"></script>
+  <?php  include('one-signal-check.php'); ?>
+</body>
+<!-- GOOGLE MAPS API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqz6F8ER7tkcYIhbifDumCa01GgTIWKqE&callback=myMap" async differ></script>
 	<script type="text/javascript">
 		function myMap() {
 			// GET LATITUDE AND LONGITUDE OF USER
@@ -292,10 +297,11 @@
 						$("#trigger-me-location").click();
 					}
 				});
-				console.log(<?php echo $_REQUEST['booking_id']; ?>);
+				
 		<?php
 			}
 		?>
 	</script>
-</body>
 </html>
+<?php } ?>
+	

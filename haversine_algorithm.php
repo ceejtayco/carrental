@@ -1,6 +1,6 @@
 <?php
     include('includes/config.php');
-    $sql = "SELECT vehicle.*,brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null GROUP BY vehicle.VehiclesTitle;";
+    $sql = "SELECT vehicle.*, vehicle.id as v_id, user.*, user.id as u_id, brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand inner join tblusers user on vehicle.user_id = user.id left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null and user.verified_at is not null group by vehicle.VehiclesTitle order by v_id;";
     $query = $dbh -> prepare($sql);
     $query->execute();
     $count=$query->rowCount();
@@ -43,7 +43,7 @@
 
     foreach($result as $vehicle) {
 
-        $string_distance = $string_distance . '{"id":'.'"'.$vehicle->id.'"' .',"vehicle": "'.$vehicle->VehiclesTitle.'", "brand": "'.$vehicle->BrandName.'", "price": "'.$vehicle->PricePerDay.'","fuel": "'.$vehicle->FuelType.'","model": "'.$vehicle->ModelYear.'","Seats": "'.$vehicle->SeatingCapacity.'","image":"'.$vehicle->Vimage1.'","distance":'. $distance_array[$counter] .'},';
+        $string_distance = $string_distance . '{"id":'.'"'.$vehicle->v_id.'"' .',"vehicle": "'.$vehicle->VehiclesTitle.'", "brand": "'.$vehicle->BrandName.'", "price": "'.$vehicle->PricePerDay.'","fuel": "'.$vehicle->FuelType.'","model": "'.$vehicle->ModelYear.'","Seats": "'.$vehicle->SeatingCapacity.'","image":"'.$vehicle->Vimage1.'","distance":'. $distance_array[$counter] .'},';
         $counter ++;
     }
     $string_distance= substr($string_distance, 0, -1);

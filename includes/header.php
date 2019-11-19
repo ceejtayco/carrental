@@ -72,9 +72,10 @@ foreach($results as $result)
               <li><a href="update-password.php">Update Password</a></li>
                  <?php if ($_SESSION['utype'] == '0') {
                 echo "
-                          <li><a href='#' id='manage-bookings'>Manage Bookings</a></li>
-                          <li><a href='#' id='my-vehicles'>My Vehicles</a></li>
-                          <li><a href='#' id='add-vehicles'>Add Vehicle</a></li>
+                          <li><a href='manage-bookings.php' id='manage-bookings'>Manage Bookings</a></li>
+                          <li><a href='my-vehicles.php' id='my-vehicles'>My Vehicles</a></li>
+                          <li><a href='add-vehicle.php' id='add-vehicles'>Add Vehicle</a></li>
+                          <li><a href='locations.php' id='view-locations'>Booking Locations</a></li>
                 
                 
                 ";
@@ -144,54 +145,54 @@ foreach($results as $result)
 
 <script src="assets/js/jquery.min.js"></script>
 <script>
-	<?php
-		if(empty($_SESSION['verified_at'])){
-	?>
-		$('#add-vehicles').attr('href', '#');
-		$('#manage-bookings').attr('style', 'background-color: white; color: black;');
-		$('#my-vehicles').attr('style', 'background-color: white; color: black;');
-		$('#add-vehicles').attr('style', 'background-color: white; color: black;');
+	// <?php
+	// 	if(empty($_SESSION['verified_at'])){
+	// ?>
+	// 	$('#add-vehicles').attr('href', '#');
+	// 	$('#manage-bookings').attr('style', 'background-color: white; color: black;');
+	// 	$('#my-vehicles').attr('style', 'background-color: white; color: black;');
+	// 	$('#add-vehicles').attr('style', 'background-color: white; color: black;');
 		
-	<?php
-		}
+	// <?php
+	// 	}
 	?>
-	$('#add-vehicles').click(function() {
-		<?php
-			if(!empty($_SESSION['verified_at'])){
-		?>
-			$('#add-vehicles').attr('href', 'add-vehicle.php');
-		<?php
-			}else{
-		?>
-			alert("Your lender account has not been verified. Only verified lenders are allowed to upload their vehicles.");
-		<?php
-			}
-		?>
-	});
-	$('#manage-bookings').click(function() {
-		<?php
-			if(!empty($_SESSION['verified_at'])){
-		?>
-			$('#manage-bookings').attr('href', 'manage-bookings.php');
-		<?php
-			}else{
-		?>
-			alert("Your lender account has not been verified. Only verified lenders are allowed to manage bookings.");
-		<?php
-			}
-		?>
-	});
-	$('#my-vehicles').click(function() {
-		<?php
-			if(!empty($_SESSION['verified_at'])){
-		?>
-			$('#my-vehicles').attr('href', 'my-vehicles.php');
-		<?php
-			}else{
-		?>
-			alert("Your lender account has not been verified. Only verified lenders are allowed to view their vehicles.");
-		<?php
-			}
-		?>
-	});
+	// $('#add-vehicles').click(function() {
+	// 	<?php
+	// 		if(!empty($_SESSION['verified_at'])){
+	// 	?>
+	// 		$('#add-vehicles').attr('href', 'add-vehicle.php');
+	// 	<?php
+	// 		}else{
+	// 	?>
+	// 		alert("Your lender account has not been verified. Only verified lenders are allowed to upload their vehicles.");
+	// 	<?php
+	// 		}
+	// 	?>
+	// });
+	// $('#manage-bookings').click(function() {
+	// 	<?php
+	// 		if(!empty($_SESSION['verified_at'])){
+	// 	?>
+	// 		$('#manage-bookings').attr('href', 'manage-bookings.php');
+	// 	<?php
+	// 		}else{
+	// 	?>
+	// 		alert("Your lender account has not been verified. Only verified lenders are allowed to manage bookings.");
+	// 	<?php
+	// 		}
+	// 	?>
+	// });
+	// $('#my-vehicles').click(function() {
+	// 	<?php
+	// 		if(!empty($_SESSION['verified_at'])){
+	// 	?>
+	// 		$('#my-vehicles').attr('href', 'my-vehicles.php');
+	// 	<?php
+	// 		}else{
+	// 	?>
+	// 		alert("Your lender account has not been verified. Only verified lenders are allowed to view their vehicles.");
+	// 	<?php
+	// 		}
+	// 	?>
+	// });
 </script>

@@ -88,7 +88,7 @@ return true;
             $('#lender-availability-status').attr('style', 'font-size: 12px;');
         } else {
             $('#ocPhoto').hide();
-            $('#lender-availability-status').attr('style', 'font-size: 0;');
+            $('#lender-availability-status').hide();
         }
     });
 

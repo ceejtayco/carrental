@@ -172,7 +172,7 @@
 										</tr>
 									</tfoot>
 									<tbody>
-									<?php $sql = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where user_id = :uid order by tblbooking.id";
+									<?php $sql = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id where user_id = :uid order by tblbooking.id desc";
 										$query = $dbh -> prepare($sql);
 										$query->bindParam(':uid', intval($_SESSION['uid']), PDO::PARAM_INT);
 										$query->execute();
@@ -224,7 +224,7 @@
 											}else if($result->Status == 2){
 										?>
 											<td>
-												<p>Cancelled</p>
+												<p>N/A</p>
 											</td>
 										<?php
 											}else if($result->Status == 3) {

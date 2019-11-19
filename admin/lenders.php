@@ -75,6 +75,7 @@ $date="0000-00-00";
 	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/manage-lender.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
   <style>
 		.errorWrap {
@@ -131,11 +132,21 @@ $date="0000-00-00";
 											<th>Name</th>
 											<th>Status</th>
 											<th>Registration date</th>
+											<th>1st Vehicle OR</th>
+											<th>1st Vehicle CR</th>
 											<th>Action</th>
 										</tr>
 									</thead>
 									<tfoot>
-							
+									<tr>
+										<th>#</th>
+											<th>Name</th>
+											<th>Status</th>
+											<th>Registration date</th>
+											<th>1st Vehicle OR</th>
+											<th>1st Vehicle CR</th>
+											<th>Action</th>
+										</tr>
 									</tfoot>
 									<tbody>
 
@@ -168,6 +179,15 @@ $date="0000-00-00";
 											</td>
 										
 													<td><?php echo htmlentities($result->regdate);?></td>
+												
+													<td>
+														<a href="lenders.php?lender_or=<?php echo $result->id; ?>" class="btn btn-primary" id="lender_or"><span class="fa fa-image"></span> &nbsp;&nbsp;View OR</a>
+														<button type="button" id="lender-trigger-me-or" data-toggle="modal" data-target="#lender-view-or-modal"></button>
+													</td>
+													<td>
+														<a href="lenders.php?lender_cr=<?php echo $result->id; ?>" class="btn btn-primary" id="lender_cr"><span class="fa fa-image"></span> &nbsp;&nbsp;View CR</a>
+														<button type="button" id="lender-trigger-me-cr" data-toggle="modal" data-target="#lender-view-cr-modal"></button>
+													</td>
 										<?php
 											if($result->verified_at == null) {
 										?>
@@ -190,6 +210,7 @@ $date="0000-00-00";
 										<?php $cnt=$cnt+1; }} ?>
 										
 									</tbody>
+									
 								</table>
 
 						
@@ -205,6 +226,59 @@ $date="0000-00-00";
 			</div>
 		</div>
 	</div>
+
+	<!-- OR MODAL -->
+	<div class="modal fade" id="lender-view-or-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal-title-or"><strong>Vehicle OR Image</strong></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-button-modal-or">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<?php
+					$sql = "SELECT vehicle.vehicle_or FROM tblvehicles vehicle inner join tblusers user on vehicle.user_id = user.id WHERE user.id = :user_id order by user.id limit 1";
+					$query = $dbh->prepare($sql);
+					$query->bindParam(':user_id',$_REQUEST['lender_or'], PDO::PARAM_STR);
+					$query->execute();
+					$result = $query->fetchAll(PDO::FETCH_OBJ);
+				?>
+				<img src="img/documents/<?php echo htmlentities($result[0]->vehicle_or);?>" alt="vehicle or" id="vehicle_image_or" style="display: block; width: 550px; height: 500px; margin: auto; padding: auto; border: 1px solid black;">
+			</div>
+			
+			</div>
+		</div>
+	</div>
+	<!-- END OR MODAL -->
+
+
+	<!-- CR MODAL -->
+	<div class="modal fade" id="lender-view-cr-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal-title-cr"><strong>Vehicle CR Image</strong></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-button-modal-cr">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<?php
+					$sql = "SELECT vehicle.vehicle_cr FROM tblvehicles vehicle inner join tblusers user on vehicle.user_id = user.id WHERE user.id = :user_id order by user.id limit 1";
+					$query = $dbh->prepare($sql);
+					$query->bindParam(':user_id',$_REQUEST['lender_cr'], PDO::PARAM_STR);
+					$query->execute();
+					$result = $query->fetchAll(PDO::FETCH_OBJ);
+				?>
+				<img src="img/documents/<?php echo htmlentities($result[0]->vehicle_cr);?>" alt="vehicle cr" id="vehicle_image_cr" style="display: block; width: 550px; height: 500px; margin: auto; padding: auto; border: 1px solid black;">
+			</div>
+			
+			</div>
+		</div>
+	</div>
+	<!-- END CR MODAL -->
 
 	<!-- Loading Scripts -->
 
@@ -394,6 +468,21 @@ $date="0000-00-00";
     $("img").on("error", function () {
     $(this).attr("src", "../img/error.png");
 });
+</script>
+<script>
+	<?php
+		if(isset($_REQUEST['lender_or'])) {
+	?>
+		$('#lender-trigger-me-or').click();
+	<?php
+		}
+
+		if(isset($_REQUEST['lender_cr'])){
+	?>
+		$('#lender-trigger-me-cr').click();
+	<?php
+		}
+	?>
 </script>
 </body>
 </html>
