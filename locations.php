@@ -202,7 +202,7 @@ header('location:index.php');
   <?php  include('one-signal-check.php'); ?>
 </body>
 <!-- GOOGLE MAPS API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqz6F8ER7tkcYIhbifDumCa01GgTIWKqE&callback=myMap" async differ></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5PPR2NTq1Q8W3oQQB5EBBP5dc0DaDO2I&callback=myMap" async differ></script>
 	<script type="text/javascript">
 		function myMap() {
 			// GET LATITUDE AND LONGITUDE OF USER
