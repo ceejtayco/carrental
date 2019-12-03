@@ -47,6 +47,16 @@
 		$query -> execute();
 		$msg = "Vehicle has been returned.";
 	}
+
+	// START USAGE
+	if(isset($_REQUEST['usage_id'])){
+		$booking_id = intval($_GET['usage_id']);
+		$sql = "INSERT INTO tblusage VALUES(null, :booking_id, 1)";
+		$query = $dbh->prepare($sql);
+		$query->bindParam(':booking_id', $booking_id, PDO::PARAM_STR);
+		$query->execute();
+		$msg = "Start vehicle usage on Booking ID " . $booking_id;
+	}
  ?>
 
 <!doctype html>
@@ -260,12 +270,28 @@
 											</td>
 										<?php	
 											}else{
+
+												$sql_usage = "SELECT * FROM tblusage WHERE booking_id = :booking_id";
+												$query_usage = $dbh->prepare($sql_usage);
+												$query_usage->bindParam(':booking_id', $result->id, PDO::PARAM_STR);
+												$query_usage->execute();
+
+												if($query_usage->rowCount() > 0) {
 										?>
-											<td>
-												<a href="manage-bookings.php?rid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Confirming the vehicle was returned')"> Returned</a>/
-												<a href="manage-bookings.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Cancel this Booking')"> Cancel</a>
-											</td>
+												<!-- STOP USAGE ON TBLUSAGE TABLE -->
+												<td>
+													<a href="manage-bookings.php?rid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Confirming the vehicle was returned')"> Returned</a>
+													<!-- <a href="manage-bookings.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Cancel this Booking')"> Cancel</a> -->
+												</td>
 										<?php
+												}else{
+										?>
+												<!-- INSERT DATA ON TBLUSAGE TABLE -->
+												<td>
+													<a href="manage-bookings.php?usage_id=<?php echo htmlentities($result->id); ?>" onclick="return confirm('Confirming the customer has already started the vehicle usage')" class="btn btn-primary btn-start-usage">Start Usage</a>
+												</td>
+										<?php
+												}
 											}
 										?> 
 										
