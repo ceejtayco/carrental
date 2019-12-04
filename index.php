@@ -124,7 +124,7 @@ $mobile = false;
           </div>
         </div>
 
-<?php $sql = "SELECT vehicle.*, vehicle.id as v_id, user.*, user.id as u_id, brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand inner join tblusers user on vehicle.user_id = user.id left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null and user.verified_at is not null;";
+<?php $sql = "SELECT vehicle.*, vehicle.id as v_id, user.*, user.id as u_id, brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand inner join tblusers user on vehicle.user_id = user.id left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null and user.verified_at is not null group by vehicle.VehiclesTitle;";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
