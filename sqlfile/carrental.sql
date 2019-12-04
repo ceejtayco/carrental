@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 03, 2019 at 06:36 PM
+-- Generation Time: Dec 04, 2019 at 11:05 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -65,7 +65,8 @@ CREATE TABLE `tblbooking` (
 
 INSERT INTO `tblbooking` (`id`, `userEmail`, `VehicleId`, `FromDate`, `ToDate`, `message`, `Status`, `PostingDate`) VALUES
 (3, 'ceejltayco@gmail.com', 38, '2019-11-14', '2019-11-16', 'Rent for business trip.', 3, '2019-11-10 14:48:19'),
-(4, 'ceejltayco@gmail.com', 44, '2019-12-04', '2019-12-04', 'For roadtrip.', 1, '2019-12-03 15:39:43');
+(4, 'ceejltayco@gmail.com', 44, '2019-12-04', '2019-12-04', 'For roadtrip.', 3, '2019-12-03 15:39:43'),
+(5, 'jbadilles@gmail.com', 38, '2019-12-04', '2019-12-04', 'For business trip.', 1, '2019-12-04 07:48:29');
 
 -- --------------------------------------------------------
 
@@ -105,6 +106,14 @@ CREATE TABLE `tblconfirmation` (
   `confirm` tinyint(1) DEFAULT NULL,
   `date_confirmed` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblconfirmation`
+--
+
+INSERT INTO `tblconfirmation` (`id`, `booking_id`, `confirm`, `date_confirmed`) VALUES
+(1, 4, 0, '2019-12-04'),
+(2, 5, 0, '2019-12-04');
 
 -- --------------------------------------------------------
 
@@ -161,6 +170,13 @@ CREATE TABLE `tbllocation` (
   `lng` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tbllocation`
+--
+
+INSERT INTO `tbllocation` (`booking_id`, `lat`, `lng`) VALUES
+(4, 7.0783797999999996, 125.55017950000001);
+
 -- --------------------------------------------------------
 
 --
@@ -206,7 +222,9 @@ CREATE TABLE `tblratings` (
 
 INSERT INTO `tblratings` (`id`, `rental_id`, `renter_id`, `booking_Id`, `rating`, `type`, `date_rated`) VALUES
 (1, 93, 94, 3, 5, 1, '2019-12-03'),
-(2, 93, 94, 3, 4, 0, '2019-12-04');
+(2, 93, 94, 3, 4, 0, '2019-12-04'),
+(3, 96, 94, 4, 5, 0, '2019-12-04'),
+(4, 96, 94, 4, 4, 1, '2019-12-04');
 
 -- --------------------------------------------------------
 
@@ -243,8 +261,16 @@ CREATE TABLE `tbltestimonial` (
 CREATE TABLE `tblusage` (
   `id` int(5) NOT NULL,
   `booking_id` int(11) NOT NULL,
-  `start` tinyint(1) NOT NULL
+  `start` tinyint(1) NOT NULL,
+  `confirmation` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblusage`
+--
+
+INSERT INTO `tblusage` (`id`, `booking_id`, `start`, `confirmation`) VALUES
+(1, 4, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -278,7 +304,8 @@ INSERT INTO `tblusers` (`id`, `verified_at`, `UserType`, `FullName`, `EmailId`, 
 (93, '2019-11-10', '0', 'Lender Demo 1', 'lender1@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.0783746, 125.55014419999998, NULL, NULL, NULL, NULL, '2019-11-09 17:43:45', '2019-11-09 17:46:39'),
 (94, NULL, '1', 'Ceej Tayco', 'ceejltayco@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 0, 0, NULL, NULL, NULL, NULL, '2019-11-09 17:44:25', NULL),
 (95, '2019-11-10', '0', 'Lender Demo 2', 'lender2@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.014706483897799, 125.49596476718136, NULL, NULL, NULL, NULL, '2019-11-10 06:37:55', '2019-11-10 06:39:31'),
-(96, '2019-12-03', '0', 'Lender Demo 3', 'lender3@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.053109999999999, 125.5589463, NULL, NULL, NULL, NULL, '2019-11-10 07:30:50', '2019-12-03 15:36:26');
+(96, '2019-12-03', '0', 'Lender Demo 3', 'lender3@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.053109999999999, 125.5589463, NULL, NULL, NULL, NULL, '2019-11-10 07:30:50', '2019-12-03 15:36:26'),
+(97, NULL, '1', 'Jenny Mae Badilles', 'jbadilles@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 0, 0, NULL, NULL, NULL, NULL, '2019-12-04 07:47:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -438,7 +465,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `tblbooking`
 --
 ALTER TABLE `tblbooking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblbrands`
@@ -450,7 +477,7 @@ ALTER TABLE `tblbrands`
 -- AUTO_INCREMENT for table `tblconfirmation`
 --
 ALTER TABLE `tblconfirmation`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblcontactusinfo`
@@ -468,7 +495,7 @@ ALTER TABLE `tblcontactusquery`
 -- AUTO_INCREMENT for table `tbllocation`
 --
 ALTER TABLE `tbllocation`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tblpages`
@@ -480,7 +507,7 @@ ALTER TABLE `tblpages`
 -- AUTO_INCREMENT for table `tblratings`
 --
 ALTER TABLE `tblratings`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tblsubscribers`
@@ -498,13 +525,13 @@ ALTER TABLE `tbltestimonial`
 -- AUTO_INCREMENT for table `tblusage`
 --
 ALTER TABLE `tblusage`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tblusers`
 --
 ALTER TABLE `tblusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `tblvehicles`

@@ -45,13 +45,19 @@
 		$query -> bindParam(':status',$status, PDO::PARAM_STR);
 		$query-> bindParam(':rid',$rid, PDO::PARAM_STR);
 		$query -> execute();
+
+		$sql = "UPDATE tblusage SET start=0 WHERE  id=:rid";
+		$query = $dbh->prepare($sql);
+		$query-> bindParam(':rid',$rid, PDO::PARAM_STR);
+		$query -> execute();
+
 		$msg = "Vehicle has been returned.";
 	}
 
 	// START USAGE
 	if(isset($_REQUEST['usage_id'])){
 		$booking_id = intval($_GET['usage_id']);
-		$sql = "INSERT INTO tblusage VALUES(null, :booking_id, 1)";
+		$sql = "INSERT INTO tblusage VALUES(null, :booking_id, 1, 0)";
 		$query = $dbh->prepare($sql);
 		$query->bindParam(':booking_id', $booking_id, PDO::PARAM_STR);
 		$query->execute();
@@ -275,15 +281,25 @@
 												$query_usage = $dbh->prepare($sql_usage);
 												$query_usage->bindParam(':booking_id', $result->id, PDO::PARAM_STR);
 												$query_usage->execute();
+												$result_usage = $query_usage->fetchAll(PDO::FETCH_OBJ);
 
 												if($query_usage->rowCount() > 0) {
+													if($result_usage[0]->confirmation == 0) {
 										?>
-												<!-- STOP USAGE ON TBLUSAGE TABLE -->
-												<td>
-													<a href="manage-bookings.php?rid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Confirming the vehicle was returned')"> Returned</a>
-													<!-- <a href="manage-bookings.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Cancel this Booking')"> Cancel</a> -->
-												</td>
+													<td>
+														<p class="text-center">Waiting for renter's start usage confirmation.</p>
+													</td>
 										<?php
+													}else{
+										?>
+													<!-- STOP USAGE ON TBLUSAGE TABLE -->
+													<td>
+														<a href="manage-bookings.php?rid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Confirming the vehicle was returned')"> Returned</a>
+														<!-- <a href="manage-bookings.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Cancel this Booking')"> Cancel</a> -->
+													</td>
+										<?php
+													}
+										
 												}else{
 										?>
 												<!-- INSERT DATA ON TBLUSAGE TABLE -->

@@ -440,7 +440,7 @@ foreach($results as $result)
         // GET LOCATION OF CUSTOMER AND SEND TO LENDER
         <?php
           if(isset($_SESSION['login'])) {
-            $sql = "SELECT id FROM tblbooking WHERE curdate() >= FromDate AND userEmail=:useremail AND Status = 1";
+            $sql = "SELECT booking.id as booking_id, tblusage.start as usage_start FROM tblbooking booking INNER JOIN tblusage ON tblusage.booking_id = booking.id WHERE curdate() >= booking.FromDate AND booking.userEmail=:useremail AND booking.Status = 1 and tblusage.start = 1 AND tblusage.confirmation  = 1;";
             $query = $dbh->prepare($sql);
             $query->bindParam(':useremail',$_SESSION['login'], PDO::PARAM_STR);
             $query->execute();
@@ -448,16 +448,17 @@ foreach($results as $result)
             for($i = 0; $i < $query->rowCount(); $i++) {
               $sql_check_location_inserted = "SELECT booking_id FROM tbllocation WHERE booking_id = :booking_id";
               $query_check_location_inserted = $dbh->prepare($sql_check_location_inserted);
-              $query_check_location_inserted->bindParam(':booking_id',$result[$i]->id, PDO::PARAM_STR);
+              $query_check_location_inserted->bindParam(':booking_id',$result[$i]->booking_id, PDO::PARAM_STR);
               $query_check_location_inserted->execute();
         ?>
+        
               $.ajax({
                 type: "POST",
                 url: "get_location.php",
                 data: {
                   lat: marker.getPosition().lat(),
                   lng: marker.getPosition().lng(),
-                  booking_id: <?php echo $result[$i]->id; ?>
+                  booking_id: <?php echo $result[$i]->booking_id; ?>
                 },
                 success: function(data) {
                   console.log(data);

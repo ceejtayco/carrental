@@ -11,6 +11,7 @@
 					<li><a href="manage-bookings.php" id="manage-bookings">Manage Bookings</a></li>
 					<li><a href="my-vehicles.php" id="my-vehicles">My Vehicles</a></li>
 					<li><a href="add-vehicle.php" id="add-vehicles">Add Vehicle</a></li>
+					<li><a href="locations.php">View Renters Locations</a></li>
 				</ul>
 			</li>
 		</ul>
