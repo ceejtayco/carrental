@@ -46,7 +46,7 @@
 		$query-> bindParam(':rid',$rid, PDO::PARAM_STR);
 		$query -> execute();
 
-		$sql = "UPDATE tblusage SET start=0 WHERE  id=:rid";
+		$sql = "UPDATE tblusage SET start = 0 WHERE booking_id=:rid";
 		$query = $dbh->prepare($sql);
 		$query-> bindParam(':rid',$rid, PDO::PARAM_STR);
 		$query -> execute();

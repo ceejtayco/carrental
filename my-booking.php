@@ -124,10 +124,38 @@ foreach($results as $result)
                   <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>""> <?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h6>
                   <p><b>From Date:</b> <?php echo htmlentities($result->FromDate);?><br /> <b>To Date:</b> <?php echo htmlentities($result->ToDate);?></p>
                 </div>
-                <?php if($result->Status==1)
-                { ?>
-                <div class="vehicle_status"> <a href="#" class="btn outline btn-xs disabled">Confirmed</a>
-                           <div class="clearfix"></div>
+          <?php if($result->Status==1){ 
+                  $sql_usage = "SELECT * FROM tblusage WHERE booking_id = :booking_id and start = 1";
+                  $query_usage = $dbh->prepare($sql_usage);
+                  $query_usage->bindParam(':booking_id', $result->booking_id, PDO::PARAM_STR);
+                  $query_usage->execute();
+                  $result_usage = $query_usage->fetchAll(PDO::FETCH_OBJ);
+                  if($query_usage->rowCount() > 0) {
+                    if($result_usage[0]->confirmation == 0){
+          ?>
+                      <div class="vehicle_status">
+                        <a href="my-booking.php?usage_id=<?php echo $result->booking_id; ?>" class="btn primary btn-xs" style="color: white;">Confirm Usage</a>
+                        <div class="clearfix">
+                      </div>
+          <?php
+                    }else{
+          ?>
+                    <div class="vehicle_status">
+                      <a href="#" class="btn outline btn-xs disabled">Usage on-going</a>
+                      <div class="clearfix">
+                    </div>
+          <?php
+                    }
+                  }else{
+          ?>
+                  <div class="vehicle_status">
+                    <a href="#" class="btn outline btn-xs disabled">Confirmed</a>
+                    <div class="clearfix">
+                  </div>
+          <?php
+                  }
+         ?>
+                
         </div>
 
               <?php } else if($result->Status==2) { ?>
@@ -262,6 +290,22 @@ foreach($results as $result)
       url: "my-booking.php?booking_id=<?php echo $_REQUEST['booking_id'];?>",
       success: function(data) {
         $("#rate_owner").click();
+      }
+    });
+<?php
+  }
+
+  if(isset($_REQUEST['usage_id'])){
+?>
+    $.ajax({
+      type: "POST",
+      url: "confirm-usage.php",
+      data: {
+        booking_id: "<?php echo $_REQUEST['usage_id']; ?>"
+      },
+      success: function(data) {
+        alert(data);
+        window.location = window.location.pathname;
       }
     });
 <?php

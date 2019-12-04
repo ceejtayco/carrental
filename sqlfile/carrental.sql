@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 04, 2019 at 11:05 AM
+-- Generation Time: Dec 04, 2019 at 05:14 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -66,7 +66,7 @@ CREATE TABLE `tblbooking` (
 INSERT INTO `tblbooking` (`id`, `userEmail`, `VehicleId`, `FromDate`, `ToDate`, `message`, `Status`, `PostingDate`) VALUES
 (3, 'ceejltayco@gmail.com', 38, '2019-11-14', '2019-11-16', 'Rent for business trip.', 3, '2019-11-10 14:48:19'),
 (4, 'ceejltayco@gmail.com', 44, '2019-12-04', '2019-12-04', 'For roadtrip.', 3, '2019-12-03 15:39:43'),
-(5, 'jbadilles@gmail.com', 38, '2019-12-04', '2019-12-04', 'For business trip.', 1, '2019-12-04 07:48:29');
+(5, 'jbadilles@gmail.com', 38, '2019-12-04', '2019-12-04', 'For business trip.', 3, '2019-12-04 07:48:29');
 
 -- --------------------------------------------------------
 
@@ -175,7 +175,8 @@ CREATE TABLE `tbllocation` (
 --
 
 INSERT INTO `tbllocation` (`booking_id`, `lat`, `lng`) VALUES
-(4, 7.0783797999999996, 125.55017950000001);
+(4, 7.0783797999999996, 125.55017950000001),
+(5, 7.078397, 125.55013329999997);
 
 -- --------------------------------------------------------
 
@@ -224,7 +225,8 @@ INSERT INTO `tblratings` (`id`, `rental_id`, `renter_id`, `booking_Id`, `rating`
 (1, 93, 94, 3, 5, 1, '2019-12-03'),
 (2, 93, 94, 3, 4, 0, '2019-12-04'),
 (3, 96, 94, 4, 5, 0, '2019-12-04'),
-(4, 96, 94, 4, 4, 1, '2019-12-04');
+(4, 96, 94, 4, 4, 1, '2019-12-04'),
+(5, 93, 97, 5, 4, 1, '2019-12-05');
 
 -- --------------------------------------------------------
 
@@ -270,7 +272,8 @@ CREATE TABLE `tblusage` (
 --
 
 INSERT INTO `tblusage` (`id`, `booking_id`, `start`, `confirmation`) VALUES
-(1, 4, 0, 0);
+(1, 4, 0, 0),
+(4, 5, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -495,7 +498,7 @@ ALTER TABLE `tblcontactusquery`
 -- AUTO_INCREMENT for table `tbllocation`
 --
 ALTER TABLE `tbllocation`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblpages`
@@ -507,7 +510,7 @@ ALTER TABLE `tblpages`
 -- AUTO_INCREMENT for table `tblratings`
 --
 ALTER TABLE `tblratings`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblsubscribers`
@@ -525,7 +528,7 @@ ALTER TABLE `tbltestimonial`
 -- AUTO_INCREMENT for table `tblusage`
 --
 ALTER TABLE `tblusage`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tblusers`
