@@ -440,18 +440,21 @@ foreach($results as $result)
         // GET LOCATION OF CUSTOMER AND SEND TO LENDER
         <?php
           if(isset($_SESSION['login'])) {
-            $sql = "SELECT booking.id as booking_id, tblusage.start as usage_start FROM tblbooking booking INNER JOIN tblusage ON tblusage.booking_id = booking.id WHERE curdate() >= booking.FromDate AND booking.userEmail=:useremail AND booking.Status = 1 and tblusage.start = 1 AND tblusage.confirmation  = 1;";
+        
+            $sql = "SELECT booking.id as booking_id, tblusage.start as usage_start FROM tblbooking booking INNER JOIN tblusage ON tblusage.booking_id = booking.id WHERE booking.userEmail=:useremail AND booking.Status = 1 and tblusage.start = 1 AND tblusage.confirmation  = 1;";
             $query = $dbh->prepare($sql);
             $query->bindParam(':useremail',$_SESSION['login'], PDO::PARAM_STR);
             $query->execute();
             $result = $query->fetchAll(PDO::FETCH_OBJ);
+          ?>
+            console.log('Row Count', <?php echo $query->rowCount(); ?>);
+          <?php
             for($i = 0; $i < $query->rowCount(); $i++) {
               $sql_check_location_inserted = "SELECT booking_id FROM tbllocation WHERE booking_id = :booking_id";
               $query_check_location_inserted = $dbh->prepare($sql_check_location_inserted);
               $query_check_location_inserted->bindParam(':booking_id',$result[$i]->booking_id, PDO::PARAM_STR);
               $query_check_location_inserted->execute();
         ?>
-        
               $.ajax({
                 type: "POST",
                 url: "get_location.php",
@@ -461,7 +464,7 @@ foreach($results as $result)
                   booking_id: <?php echo $result[$i]->booking_id; ?>
                 },
                 success: function(data) {
-                  console.log(data);
+                  console.log('Location successfully registered', data);
                 }
               });
         <?php
@@ -601,7 +604,7 @@ foreach($results as $result)
 					document.getElementById('lender-autocomplete-address').value = address;
           document.getElementById('lender_lat').value = marker.getPosition().lat();
           document.getElementById('lender_lng').value = marker.getPosition().lng();
-          console.log("Latitude: " + latLng['lat'] + "; Longitude: " + latLng['lng']);
+          // console.log("Latitude: " + latLng['lat'] + "; Longitude: " + latLng['lng']);
 				}else{
 					alert('No Results found');
 				}

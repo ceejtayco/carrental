@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 04, 2019 at 05:14 PM
+-- Generation Time: Dec 21, 2019 at 08:55 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -66,7 +66,9 @@ CREATE TABLE `tblbooking` (
 INSERT INTO `tblbooking` (`id`, `userEmail`, `VehicleId`, `FromDate`, `ToDate`, `message`, `Status`, `PostingDate`) VALUES
 (3, 'ceejltayco@gmail.com', 38, '2019-11-14', '2019-11-16', 'Rent for business trip.', 3, '2019-11-10 14:48:19'),
 (4, 'ceejltayco@gmail.com', 44, '2019-12-04', '2019-12-04', 'For roadtrip.', 3, '2019-12-03 15:39:43'),
-(5, 'jbadilles@gmail.com', 38, '2019-12-04', '2019-12-04', 'For business trip.', 3, '2019-12-04 07:48:29');
+(5, 'jbadilles@gmail.com', 38, '2019-12-04', '2019-12-04', 'For business trip.', 3, '2019-12-04 07:48:29'),
+(6, 'ceejltayco@gmail.com', 38, '2019-12-23', '2019-12-23', 'For company outing.', 3, '2019-12-21 16:30:10'),
+(7, 'ceejltayco@gmail.com', 39, '2019-12-23', '2019-12-25', 'For business trp.', 3, '2019-12-21 19:14:23');
 
 -- --------------------------------------------------------
 
@@ -113,7 +115,9 @@ CREATE TABLE `tblconfirmation` (
 
 INSERT INTO `tblconfirmation` (`id`, `booking_id`, `confirm`, `date_confirmed`) VALUES
 (1, 4, 0, '2019-12-04'),
-(2, 5, 0, '2019-12-04');
+(2, 5, 0, '2019-12-04'),
+(3, 6, 0, '2019-12-22'),
+(4, 7, 0, '2019-12-22');
 
 -- --------------------------------------------------------
 
@@ -176,7 +180,9 @@ CREATE TABLE `tbllocation` (
 
 INSERT INTO `tbllocation` (`booking_id`, `lat`, `lng`) VALUES
 (4, 7.0783797999999996, 125.55017950000001),
-(5, 7.078397, 125.55013329999997);
+(5, 7.078397, 125.55013329999997),
+(6, 7.078384499999999, 125.55015379999998),
+(7, 7.0783869, 125.55015549999996);
 
 -- --------------------------------------------------------
 
@@ -226,7 +232,8 @@ INSERT INTO `tblratings` (`id`, `rental_id`, `renter_id`, `booking_Id`, `rating`
 (2, 93, 94, 3, 4, 0, '2019-12-04'),
 (3, 96, 94, 4, 5, 0, '2019-12-04'),
 (4, 96, 94, 4, 4, 1, '2019-12-04'),
-(5, 93, 97, 5, 4, 1, '2019-12-05');
+(5, 93, 97, 5, 4, 1, '2019-12-05'),
+(6, 93, 94, 6, 5, 1, '2019-12-22');
 
 -- --------------------------------------------------------
 
@@ -273,7 +280,9 @@ CREATE TABLE `tblusage` (
 
 INSERT INTO `tblusage` (`id`, `booking_id`, `start`, `confirmation`) VALUES
 (1, 4, 0, 0),
-(4, 5, 0, 1);
+(4, 5, 0, 1),
+(5, 6, 0, 1),
+(6, 7, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +317,8 @@ INSERT INTO `tblusers` (`id`, `verified_at`, `UserType`, `FullName`, `EmailId`, 
 (94, NULL, '1', 'Ceej Tayco', 'ceejltayco@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 0, 0, NULL, NULL, NULL, NULL, '2019-11-09 17:44:25', NULL),
 (95, '2019-11-10', '0', 'Lender Demo 2', 'lender2@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.014706483897799, 125.49596476718136, NULL, NULL, NULL, NULL, '2019-11-10 06:37:55', '2019-11-10 06:39:31'),
 (96, '2019-12-03', '0', 'Lender Demo 3', 'lender3@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.053109999999999, 125.5589463, NULL, NULL, NULL, NULL, '2019-11-10 07:30:50', '2019-12-03 15:36:26'),
-(97, NULL, '1', 'Jenny Mae Badilles', 'jbadilles@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 0, 0, NULL, NULL, NULL, NULL, '2019-12-04 07:47:28', NULL);
+(97, NULL, '1', 'Jenny Mae Badilles', 'jbadilles@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 0, 0, NULL, NULL, NULL, NULL, '2019-12-04 07:47:28', NULL),
+(98, '2019-12-22', '0', 'Lender 4', 'lender4@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.049762499541513, 125.58792300292976, NULL, NULL, NULL, NULL, '2019-12-21 16:47:51', '2019-12-21 19:52:20');
 
 -- --------------------------------------------------------
 
@@ -359,7 +369,8 @@ INSERT INTO `tblvehicles` (`id`, `user_id`, `VehiclesTitle`, `VehiclesBrand`, `V
 (37, 93, 'Fortuner', 5, 'Toyota Fortuner Brand new (White)', 5000, 'Diesel', 2019, 20, '2015_Toyota_Fortuner_(New_Zealand).jpg', '2018_Toyota_Fortuner_(KUN160R)_Crusade_wagon_(2018-09-28)_01.jpg', '2018_Toyota_Fortuner_(KUN160R)_Crusade_wagon_(2018-09-28)_02.jpg', '1488710.jpg', '', 1, 1, 1, NULL, 1, 1, 1, NULL, 1, 1, 1, 1, '2019-11-10 09:17:40', '2019-11-10 13:25:53', 7.0783746, 125.55014419999998, 'orcr-main-1546929571.jpg', 'registration-certificate-card-haryana-2.jpg'),
 (38, 93, 'Rush', 5, 'Toyota Rush Brand New', 2500, 'Diesel', 2019, 10, 'maxresdefault.jpg', 'Toyota Rush Exterior-4.jpg', 'Toyota Rush Exterior-16.jpg', 'toyota_rush-saf-cover.jpeg', 'toyota-rush-front-angle-low-view-721039.jpg', 1, 1, NULL, NULL, 1, 1, 1, 1, 1, 1, 1, NULL, '2019-11-10 09:52:35', NULL, 7.0783746, 125.55014419999998, 'orcr-main-1546929571.jpg', 'registration-certificate-card-haryana-2.jpg'),
 (39, 95, 'Xpander', 8, 'Mitsubishi Xpander Brand new 2019', 2500, 'Diesel', 2019, 15, 'xpander1.jpg', 'xpander2.jpg', 'xpander3.jpg', 'xpander4.jpg', '', 1, 1, 1, NULL, 1, 1, 1, 1, 1, 1, 1, NULL, '2019-12-03 15:04:03', '2019-12-03 15:32:07', 7.014706483897799, 125.49596476718136, 'official receipt.jpg', 'certificate of registration.jpg'),
-(44, 96, 'Navarra', 4, 'Nissan Navarra 2019 Orange', 2500, 'Diesel', 2019, 20, 'navarra1.jpg', 'navarra2.jpg', 'navarra3.jpg', 'navarra4.jpg', '', 1, 1, 1, NULL, 1, 1, 1, NULL, 1, 1, 1, NULL, '2019-12-03 15:35:23', NULL, 7.053109999999999, 125.5589463, 'official receipt 1.jpg', 'certificate of registration 1.jpg');
+(44, 96, 'Navarra', 4, 'Nissan Navarra 2019 Orange', 2500, 'Diesel', 2019, 20, 'navarra1.jpg', 'navarra2.jpg', 'navarra3.jpg', 'navarra4.jpg', '', 1, 1, 1, NULL, 1, 1, 1, NULL, 1, 1, 1, NULL, '2019-12-03 15:35:23', NULL, 7.053109999999999, 125.5589463, 'official receipt 1.jpg', 'certificate of registration 1.jpg'),
+(45, 98, 'Montero Sport', 8, 'Montero Sport 2019 edition white', 5000, 'Diesel', 2019, 20, 'montero 1.jpg', 'montero 2.jpg', 'montero 3.jpeg', 'montero 4.jpg', '', 1, 1, 1, NULL, 1, 1, 1, NULL, 1, 1, 1, 1, '2019-12-21 16:56:48', '2019-12-21 16:58:19', 7.049762499541513, 125.58792300292976, 'car-registration-main.jpg', 'blog-850x420-2-51.jpg');
 
 --
 -- Indexes for dumped tables
@@ -468,7 +479,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `tblbooking`
 --
 ALTER TABLE `tblbooking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tblbrands`
@@ -480,7 +491,7 @@ ALTER TABLE `tblbrands`
 -- AUTO_INCREMENT for table `tblconfirmation`
 --
 ALTER TABLE `tblconfirmation`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tblcontactusinfo`
@@ -498,7 +509,7 @@ ALTER TABLE `tblcontactusquery`
 -- AUTO_INCREMENT for table `tbllocation`
 --
 ALTER TABLE `tbllocation`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tblpages`
@@ -510,7 +521,7 @@ ALTER TABLE `tblpages`
 -- AUTO_INCREMENT for table `tblratings`
 --
 ALTER TABLE `tblratings`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tblsubscribers`
@@ -528,19 +539,19 @@ ALTER TABLE `tbltestimonial`
 -- AUTO_INCREMENT for table `tblusage`
 --
 ALTER TABLE `tblusage`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tblusers`
 --
 ALTER TABLE `tblusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `tblvehicles`
 --
 ALTER TABLE `tblvehicles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- Constraints for dumped tables

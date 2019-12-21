@@ -83,7 +83,7 @@ error_reporting(0);
 //Query for Listing count
 $brand=$_POST['brand'];
 $fueltype=$_POST['fueltype'];
-$sql = "SELECT id from tblvehicles where tblvehicles.VehiclesBrand=:brand and tblvehicles.FuelType=:fueltype";
+$sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid, tblusers.verified_at from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand inner join tblusers on tblusers.id = tblvehicles.user_id where tblvehicles.VehiclesBrand=:brand and tblvehicles.FuelType=:fueltype and tblusers.verified_at is not null";
 $query = $dbh -> prepare($sql);
 $query -> bindParam(':brand',$brand, PDO::PARAM_STR);
 $query -> bindParam(':fueltype',$fueltype, PDO::PARAM_STR);
@@ -96,8 +96,10 @@ $cnt=$query->rowCount();
 </div>
 
 <?php 
+// <?php $sql = "SELECT vehicle.*, vehicle.id as v_id, user.*, user.id as u_id, brands.BrandName,(SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) from tblvehicles vehicle inner join tblbrands brands on brands.id=vehicle.VehiclesBrand inner join tblusers user on vehicle.user_id = user.id left join tblbooking booking on vehicle.id = booking.VehicleId WHERE (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) != 1 or (SELECT status from tblbooking WHERE VehicleId=vehicle.id order by id desc limit 1) is null and user.verified_at is not null group by vehicle.VehiclesTitle;";
 
-$sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.VehiclesBrand=:brand and tblvehicles.FuelType=:fueltype";
+// $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid, tblusers.verified_at from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand inner join tblusers on tblusers.id = tblvehicles.user_id where tblvehicles.VehiclesBrand=:brand and tblvehicles.FuelType=:fueltype and tblusers.verified_att^P != null";
+$sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid, tblusers.verified_at from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand inner join tblusers on tblusers.id = tblvehicles.user_id where tblvehicles.VehiclesBrand=:brand and tblvehicles.FuelType=:fueltype and tblusers.verified_at is not null";
 $query = $dbh -> prepare($sql);
 $query -> bindParam(':brand',$brand, PDO::PARAM_STR);
 $query -> bindParam(':fueltype',$fueltype, PDO::PARAM_STR);
@@ -173,7 +175,9 @@ foreach($results as $result)
           </div>
           <div class="recent_addedcars">
             <ul>
-<?php $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand order by id desc limit 4";
+<?php 
+// $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand order by id desc limit 4"; //OLD QUERY
+$sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand join tblusers on tblusers.id = tblvehicles.user_id where tblusers.verified_at is not null order by tblvehicles.id desc limit 4";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
