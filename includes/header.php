@@ -10,7 +10,7 @@ $container = "container";
 if ($detect->isMobile() || $detect->isTablet() ) {
     $isMobile = true;
     $btnColor = 'color: red !important;';
-    $navColor = "background-color: #cc1234 !important; color:white !important;";
+    $navColor = "background-color: #428bca !important; color:white !important;";
     $fixed = "position:fixed !important; top:0; left:0; width: 100%; z-index:2;";
     $container = "";
 } 
