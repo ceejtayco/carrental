@@ -9,7 +9,7 @@ $fixed = "";
 $container = "container";
 if ($detect->isMobile() || $detect->isTablet() ) {
     $isMobile = true;
-    $btnColor = 'color: red !important;';
+    $btnColor = 'color: #428bca !important;';
     $navColor = "background-color: #428bca !important; color:white !important;";
     $fixed = "position:fixed !important; top:0; left:0; width: 100%; z-index:2;";
     $container = "";
@@ -27,7 +27,7 @@ if ($detect->isMobile() || $detect->isTablet() ) {
   <nav id="navigation_bar" class="navbar navbar-default  <?php $isMobile ? 'fixed-top shadowed' : ''?>" style="<?php echo $navColor ?>">
     <div class="<?php echo $container ?>">
       <div class="navbar-header" style="padding-left:2rem !important;">
-        <button id="menu_slide" data-target="#navigation" aria-expanded="false" data-toggle="collapse" class="navbar-toggle collapsed" type="button" style="color:red !important; border: none !important;"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar" style="color: red !important;"></span> <span class="icon-bar" style="color: red !important;"></span> <span class="icon-bar" style="color: red !important;"></span> </button>
+        <button id="menu_slide" data-target="#navigation" aria-expanded="false" data-toggle="collapse" class="navbar-toggle collapsed" type="button" style="color:#428bca !important; border: none !important;"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar" style="color: #428bca !important;"></span> <span class="icon-bar" style="color: #428bca !important;"></span> <span class="icon-bar" style="color: #428bca !important;"></span> </button>
         
         
       </div>
@@ -112,7 +112,7 @@ foreach($results as $result)
         </div> -->
          <?php 
             if( $detect->isMobile() || $detect->isTablet() ){
-                echo '<div class="ml-3  p-1" style="font-size:9px !important; color:red;"></div>';
+                echo '<div class="ml-3  p-1" style="font-size:9px !important; color:#428bca;"></div>';
             }
         ?>
         
