@@ -46,27 +46,7 @@ error_reporting(0);
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
 <link rel="stylesheet" href="assets/css/modal_confirmation.css">
-<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
-<script>
-  var OneSignal = window.OneSignal || [];
-  console.log('Push notif');
-  OneSignal.push(function() {
-    OneSignal.init({
-      appId: "c7203da0-332c-4ab4-bf61-9e3802b93cb8",
-      notifyButton: {
-        enable: true,
-      },
-    });
-    
-    OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-      if (isEnabled)
-        console.log("Push notifications are enabled!");
-      else
-        console.log("Push notifications are not enabled yet.");    
-    });
-    
-  });
-</script>
+
 </head>
 <body>
 
@@ -346,7 +326,31 @@ foreach($results as $result)
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
 <!-- <?php include('one-signal-check.php') ?> -->
+
 </body>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+<script>
+  var OneSignal = window.OneSignal || [];
+  console.log('Push notif');
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "c7203da0-332c-4ab4-bf61-9e3802b93cb8",
+      notifyButton: {
+        enable: true,
+      },
+    });
+    
+    OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+      if (isEnabled)
+        console.log("Push notifications are enabled!");
+      else
+        console.log("Push notifications are not enabled yet.");    
+    });
+    
+  });
+</script>
+
+
 <!--Google Maps API--> 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5PPR2NTq1Q8W3oQQB5EBBP5dc0DaDO2I&libraries=places&callback=myMap" async differ></script>
