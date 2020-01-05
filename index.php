@@ -49,6 +49,7 @@ error_reporting(0);
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
 <script>
   var OneSignal = window.OneSignal || [];
+  console.log('Push notif');
   OneSignal.push(function() {
     OneSignal.init({
       appId: "c7203da0-332c-4ab4-bf61-9e3802b93cb8",
