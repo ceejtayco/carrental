@@ -47,17 +47,7 @@ error_reporting(0);
 <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
 <link rel="stylesheet" href="assets/css/modal_confirmation.css">
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-<script>
-  var OneSignal = window.OneSignal || [];
-  OneSignal.push(function() {
-    OneSignal.init({
-      appId: "c7203da0-332c-4ab4-bf61-9e3802b93cb8",
-      notifyButton: {
-        enable: true,
-      },
-    });
-  });
-</script>
+<script src="onesignal.js"></script>
 </head>
 <body>
 
