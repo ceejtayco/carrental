@@ -46,17 +46,6 @@ error_reporting(0);
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
 <link rel="stylesheet" href="assets/css/modal_confirmation.css">
-<!-- import one signal -->
-<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-<script>
-  var OneSignal = window.OneSignal || [];
-  OneSignal.push(function() {
-    OneSignal.init({
-      appId: "31d3c94d-0108-4930-a1f3-32f321917582",
-    });
-  });
-</script>
-
 </head>
 <body>
 
@@ -338,6 +327,16 @@ foreach($results as $result)
 <!-- <?php include('one-signal-check.php') ?> -->
 </body>
 <!--Google Maps API--> 
+<!-- import one signal -->
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  var OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "31d3c94d-0108-4930-a1f3-32f321917582",
+    });
+  });
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5PPR2NTq1Q8W3oQQB5EBBP5dc0DaDO2I&libraries=places&callback=myMap" async differ></script>
 <script type="text/javascript">
   var distances;
