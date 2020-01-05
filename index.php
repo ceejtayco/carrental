@@ -56,6 +56,7 @@ error_reporting(0);
         enable: true,
       },
     });
+    OneSignal.showNativePrompt();
   });
 </script>
 </head>
