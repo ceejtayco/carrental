@@ -46,8 +46,9 @@ error_reporting(0);
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
 <link rel="stylesheet" href="assets/css/modal_confirmation.css">
-
-</script>
+<!-- import one signal -->
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script src="onesignal.js" type="text/javascript"></script>
 
 </head>
 <body>
@@ -327,7 +328,7 @@ foreach($results as $result)
 <!--Slider-JS--> 
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
-<?php include('one-signal-check.php') ?>
+<!-- <?php include('one-signal-check.php') ?> -->
 </body>
 <!--Google Maps API--> 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5PPR2NTq1Q8W3oQQB5EBBP5dc0DaDO2I&libraries=places&callback=myMap" async differ></script>
