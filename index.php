@@ -77,11 +77,17 @@ $mobile = false;
 <?php
 
 if(isset($_SESSION['login'])) {
+  $sql = "SELECT id FROM tblusers WHERE EmailId=:user_email";
+  $query = $dbh->prepare($sql);
+  $query->bindParam(':user_email', $_SESSION['login'], PDO::PARAM_STR);
+  $query->execute();
+  $result = $query->fetchAll(PDO::FETCH_OBJ);
 ?>
   <script>
     OneSignal.push(function() {
       OneSignal.sendTags({
-        user_name:"<?php echo $_SESSION['login'] ?>"
+        user_name:"<?php echo $_SESSION['login'] ?>",
+        user_id: "<?php echo $result[0]->id ?>"
       });
     });
   </script>

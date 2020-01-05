@@ -87,10 +87,11 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
 <link rel="apple-touch-icon-precomposed" href="assets/images/favicon-icon/3.jpg">
 <link rel="shortcut icon" href="assets/images/favicon-icon/3.jpg">
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script src="onesignal.js"></script>
 
 
-
-  <?php  include('one-signal-check.php'); ?>
+  <!-- <?php  include('one-signal-check.php'); ?> -->
 
 </head>
 <body>
