@@ -778,8 +778,5 @@ foreach($results as $result)
     }
   }
 
-$('btn-view-map').click(function() {
-  document.dispatchEvent('trigger-button');
-});
 </script>
 </html>
