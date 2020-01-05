@@ -12,5 +12,5 @@ OneSignal.push(function() {
       // "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
     }
   });
-  
+  OneSignal.showNativePrompt();
 });
