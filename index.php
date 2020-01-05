@@ -81,7 +81,7 @@ if(isset($_SESSION['login'])) {
   <script>
     OneSignal.push(function() {
       OneSignal.sendTags({
-        user_name="<?php echo $_SESSION['login'] ?>"
+        user_name:"<?php echo $_SESSION['login'] ?>"
       });
     });
   </script>
