@@ -2,6 +2,7 @@
 session_start();
 include('includes/config.php');
 error_reporting(0);
+
 ?>
 
 <!DOCTYPE HTML>
@@ -71,6 +72,22 @@ $mobile = false;
     }
 ?>
 <!--/Mobile Checker-->
+
+<!-- GET TAGS -->
+<?php
+
+if(isset($_SESSION['login'])) {
+?>
+  <script>
+    OneSignal.push(function() {
+      OneSignal.sendTags({
+        user_name="<?php echo $_SESSION['login'] ?>"
+      });
+    });
+  </script>
+<?php
+}
+?>
 
 <!--Page Header-->
 <section id="banner" class="<?php echo $banner ?>">

@@ -7,5 +7,4 @@ OneSignal.push(function() {
       enable: true,
     }
   });
-  
 });
