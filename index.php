@@ -777,5 +777,9 @@ foreach($results as $result)
       map.style.height = '80px';
     }
   }
+
+$('btn-view-map').click(function() {
+  document.dispatchEvent('trigger-button');
+});
 </script>
 </html>
