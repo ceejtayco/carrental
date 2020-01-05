@@ -120,7 +120,7 @@ foreach($results as $result)
       </div>
       <div class="collapse navbar-collapse" id="navigation" style="background-color:black !important;" >
         <ul class="nav navbar-nav">
-          <!-- <li><a href="index.php">Home</a></li> -->
+          <li><a href="index.php">Home</a></li>
           <li><a href="car-listing.php">About Us</a></li>
           <!-- <li><a href="page.php?type=aboutus">Car Listing</a> -->
           <!-- <li><a href="page.php?type=faqs">FAQs</a></li> -->
