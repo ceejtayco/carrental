@@ -527,7 +527,6 @@
 			});
 		}
 	</script>
-  <?php  include('one-signal-check.php'); ?>
 </body>
 </html>
 <?php } ?>
