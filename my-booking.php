@@ -310,7 +310,7 @@ foreach($results as $result)
         window.location = window.location.pathname;
       }
     });
-    $sql = "SELECT user.user_id as user_id FROM tblbooking booking INNER JOIN tblvehicle vehicle ON booking.VehicleId = vehicle.id INNER JOIN tblusers user ON vehicle.user_id = user.id WHERE booking.id = :booking_id";
+    $sql = "SELECT user.id as user_id FROM tblbooking booking INNER JOIN tblvehicles vehicle ON booking.VehicleId = vehicle.id INNER JOIN tblusers user ON vehicle.user_id = user.id WHERE booking.id = :booking_id";
     $query = $dbh->prepare($sql);
     $query->bindParam(':booking_id', $_REQUEST['usage_id'], PDO::PARAM_STR);
     $query->execute();
