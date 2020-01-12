@@ -47,7 +47,7 @@ if ($detect->isMobile() || $detect->isTablet() ) {
 <?php
 
 $email=$_SESSION['login'];
-$sql ="SELECT FullName FROM tblusers WHERE EmailId=:email ";
+$sql ="SELECT id, FullName, UserType FROM tblusers WHERE EmailId=:email ";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':email', $email, PDO::PARAM_STR);
 $query-> execute();
@@ -62,6 +62,9 @@ foreach($results as $result)
     if($_SESSION['utype'] == '0' && !empty($_SESSION['verified_at'])){
   ?>
 <i class="fa fa-check-circle" aria-hidden="true" style="color: skyblue; font-size: 15px;"></i>
+<p id="session_user_name" style="display:hidden;"><?php echo $_SESSION['login'] ?></p>
+<p id="session_user_id" style="display:hidden;"><?php echo $result->id ?></p>
+<p id="session_user_type" style="display:hidden;"><?php echo $result->UserType ?></p>
   <?php
     }
    ?>
