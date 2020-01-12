@@ -47,8 +47,7 @@ error_reporting(0);
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
 <link rel="stylesheet" href="assets/css/modal_confirmation.css">
-<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-<script src="onesignal.js"></script>
+
 </head>
 <body>
 
@@ -355,6 +354,8 @@ foreach($results as $result)
 <!--Google Maps API--> 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5PPR2NTq1Q8W3oQQB5EBBP5dc0DaDO2I&libraries=places&callback=myMap" async differ></script>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script src="onesignal.js"></script>
 <script type="text/javascript">
   var distances;
   
