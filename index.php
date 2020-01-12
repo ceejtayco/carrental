@@ -351,7 +351,6 @@ foreach($results as $result)
 <!--Slider-JS--> 
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
-<!-- <?php include('one-signal-check.php') ?> -->
 </body>
 <!--Google Maps API--> 
 
