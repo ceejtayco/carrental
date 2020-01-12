@@ -63,7 +63,7 @@ foreach($results as $result)
   ?>
 <i class="fa fa-check-circle" aria-hidden="true" style="color: skyblue; font-size: 15px;"></i>
 <p id="session_user_name" style="display:none;"><?php echo $_SESSION['login'] ?></p>
-<p id="session_user_id" style="dislpay:none;"><?php echo $result->id ?></p>
+<p id="session_user_id" style="display:none;"><?php echo $result->id ?></p>
 <p id="session_user_type" style="display:none;"><?php echo $result->UserType ?></p>
   <?php
     }
