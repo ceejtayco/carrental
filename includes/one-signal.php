@@ -1,16 +1,16 @@
 <?PHP
 	function sendMessage(){
 		$content = array(
-			"en" => 'A new booking request has been made!'
+			"en" => 'A new booking has been made!'
 			);
 		
 		
 		//Note: for matching ID of lender with vehicle from SESSION variable 
 		$fields = array(
-			'app_id' => "03243a75-a927-4b5c-bcbd-0554406044e0",
-			'filters' => array(array("field" => "tag", "key" => "userType", "relation" => "=", "value" => "landlord"),array("operator" => "AND"),array("field" => "tag", "key" => "userId", "relation" => "=", "value" => $_SESSION['lenderid'])),
+			'app_id' => "2e1738f0-3d6a-46c4-9513-cb95ebf3e894",
+			'filters' => array(array("field" => "tag", "key" => "user_type", "relation" => "=", "value" => "0"),array("operator" => "AND"),array("field" => "tag", "key" => "user_id", "relation" => "=", "value" => $_SESSION['lenderid'])),
+			'data' => array("user_type" => "1"),
 			'url' => 'https://ezrent.online/manage-bookings.php',
-			'data' => array("user_type" => "landlord"),
 			'contents' => $content,
 				
 		);
@@ -21,7 +21,7 @@
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
-        'Authorization: Basic NTg4NGExYzctY2I0ZS00ZTdiLTg5OWYtYWM0NjgxZWVkYTQw'));
+        'Authorization: Basic OGI2YmI2YzctYjAyYy00NDM1LTlmMGYtYmU2NjY4Y2E3MzAx'));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		curl_setopt($ch, CURLOPT_POST, TRUE);
