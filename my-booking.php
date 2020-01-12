@@ -295,6 +295,17 @@ foreach($results as $result)
       }
     });
 <?php
+
+
+    $sql = "SELECT user.id as user_id FROM tblbooking booking INNER JOIN tblvehicles vehicle ON booking.VehicleId = vehicle.id INNER JOIN tblusers user ON vehicle.user_id = user.id WHERE booking.id = :booking_id;";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':booking_id', $_REQUEST['usage_id'], PDO::PARAM_STR);
+    $query->execute();
+    $results = $query->fetchAll(PDO::FETCH_OBJ);
+    // SEND NOTIF TO LENDER
+    $_SESSION['lenderid'] = $results[0]->user_id;
+    $_SESSION['renter_notification_message'] = 'Renter has confirmed the usage';
+    include('includes/one-signal.php');
   }
 
   if(isset($_REQUEST['usage_id'])){
