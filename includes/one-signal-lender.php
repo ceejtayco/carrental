@@ -1,7 +1,7 @@
 <?PHP
 	function sendMessage(){
 		$content = array(
-			"en" => $_SESSION['lender_notification_message']
+			"en" => 'A new booking has been made'
 			);
 		
 		
