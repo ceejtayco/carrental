@@ -62,9 +62,9 @@ foreach($results as $result)
     if($_SESSION['utype'] == '0' && !empty($_SESSION['verified_at'])){
   ?>
 <i class="fa fa-check-circle" aria-hidden="true" style="color: skyblue; font-size: 15px;"></i>
-<p id="session_user_name" style="visibility:hidden;"><?php echo $_SESSION['login'] ?></p>
-<p id="session_user_id" style="visibility:hidden;"><?php echo $result->id ?></p>
-<p id="session_user_type" style="visibility:hidden;"><?php echo $result->UserType ?></p>
+<p id="session_user_name" style="visibility:hidden;size=0;"><?php echo $_SESSION['login'] ?></p>
+<p id="session_user_id" style="visibility:hidden;size=0;"><?php echo $result->id ?></p>
+<p id="session_user_type" style="visibility:hidden;size=0;"><?php echo $result->UserType ?></p>
   <?php
     }
    ?>
