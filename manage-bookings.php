@@ -34,6 +34,7 @@
 	$query -> execute();
 
 	$msg="Booking Successfully Confirmed";
+	include('includes/one-signal-lender.php');
 	}
 
 	if(isset($_REQUEST['rid'])){
@@ -96,6 +97,8 @@
 	<link rel="stylesheet" href="admin/css/style.css">
 	<!-- Manage Bookings CSS -->
 	<link rel="stylesheet" href="assets/css/manage-bookings.css">
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+	<script src="onesignal.js"></script>
   <style>
 		.errorWrap {
     padding: 10px;
