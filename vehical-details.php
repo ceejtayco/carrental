@@ -42,7 +42,7 @@ $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-
+$_SESSION['renter_notification_message'] = 'A renter has booked one of your vehicle';
 include('includes/one-signal.php');
 // include('includes/create-notif.php');
 echo "<script>alert('Booking successful.');</script>";

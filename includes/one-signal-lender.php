@@ -1,7 +1,7 @@
 <?PHP
 	function sendMessage(){
 		$content = array(
-			"en" => 'Your booking has been confirmed!'
+			"en" => $_SESSION['lender_notification_message']
 			);
 		
 		

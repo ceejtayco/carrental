@@ -19,6 +19,8 @@
 	$query -> execute();
 
 	$msg="Booking Successfully Cancelled";
+	$_SESSION['lender_notification_message'] = 'Your booking has been cancelled';
+	include('includes/one-signal-lender.php');
 	}
 
 
@@ -40,7 +42,8 @@
 	$query-> bindParam(':aeid',$aeid, PDO::PARAM_STR);
 	$query -> execute();
 	$results=$query->fetchAll(PDO::FETCH_OBJ);
-    $_SESSION['renter_email'] = $results[0]->userEmail;
+	$_SESSION['renter_email'] = $results[0]->userEmail;
+	$_SESSION['lender_notification_message'] = 'Your booking has been confirmed';
 	include('includes/one-signal-lender.php');
 	}
 
@@ -70,6 +73,8 @@
 		$query->bindParam(':booking_id', $booking_id, PDO::PARAM_STR);
 		$query->execute();
 		$msg = "Start vehicle usage on Booking ID " . $booking_id;
+		$_SESSION['lender_notification_message'] = 'The lender has started your booking usage.';
+		include('includes/one-signal-lender.php');
 	}
  ?>
 
