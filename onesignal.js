@@ -1,6 +1,6 @@
 var OneSignal = window.OneSignal || [];
   OneSignal.push(function() {
     OneSignal.init({
-      appId: "2e1738f0-3d6a-46c4-9513-cb95ebf3e894",
+      appId: "c7203da0-332c-4ab4-bf61-9e3802b93cb8",
     });
   });
