@@ -44,8 +44,10 @@ if($lastInsertId)
 {
 
 include('includes/one-signal.php');
-include('includes/create-notif.php');
+// include('includes/create-notif.php');
 echo "<script>alert('Booking successful.');</script>";
+?>
+<?php
 }
 else 
 {

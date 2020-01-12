@@ -18,7 +18,10 @@ $_SESSION['uid']=$results[0]->id;
 $_SESSION['verified_at'] = $results[0]->verified_at;
 $currentpage=$_SERVER['REQUEST_URI'];
 echo "<script type='text/javascript'> document.location = '$currentpage'; </script>";
-    
+    // SEND TAGS ON ONE SIGNAL
+?>
+  
+<?php
 
 } else{
   
