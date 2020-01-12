@@ -53,6 +53,8 @@ $msg="Brand updted successfully";
 	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+	<script src="onesignal.js"></script>
   <style>
 		.errorWrap {
     padding: 10px;
@@ -159,7 +161,6 @@ foreach($results as $result)
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
 
-  <?php  include('one-signal-check.php'); ?>
 </body>
 
 </html>

@@ -125,6 +125,8 @@ $error="Something went wrong. Please try again";
 	<link rel="stylesheet" href="admin/css/style.css">
 	<link rel="stylesheet" href="admin/css/map.css">
 	<link rel="stylesheet" href="admin/css/form-buttons.css">
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+	<script src="onesignal.js"></script>
 <style>
 		.errorWrap {
     padding: 10px;
@@ -400,7 +402,6 @@ Image 5<input type="file" name="img5">
 	<script src="admin/js/chartData.js"></script>
 	<script src="admin/js/main.js"></script>
 	
-  <?php  include('one-signal-check.php'); ?>
 </body>
 </html>
 <?php } ?>

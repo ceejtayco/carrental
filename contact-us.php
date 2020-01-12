@@ -59,6 +59,8 @@ $error="Something went wrong. Please try again";
 <link rel="apple-touch-icon-precomposed" href="assets/images/favicon-icon/3.jpg">
 <link rel="shortcut icon" href="assets/images/favicon-icon/3.jpg">
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+	<script src="onesignal.js"></script>
  <style>
     .errorWrap {
     padding: 10px;
@@ -208,7 +210,6 @@ foreach($results as $result)
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
 
-  <?php  include('one-signal-check.php'); ?>
 </body>
 
 <!-- Mirrored from themes.webmasterdriver.net/carforyou/demo/contact-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 Jun 2017 07:26:55 GMT -->

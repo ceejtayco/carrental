@@ -99,6 +99,8 @@ $msg="Data updated successfully";
 	<link rel="stylesheet" href="admin/css/style.css">
 	<link rel="stylesheet" href="admin/css/map.css">
 	<link rel="stylesheet" href="admin/css/form-buttons.css">
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+	<script src="onesignal.js"></script>
 	<style>
 		.errorWrap {
     padding: 10px;

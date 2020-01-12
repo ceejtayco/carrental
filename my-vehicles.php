@@ -50,6 +50,9 @@ $msg="Vehicle record deleted successfully";
 	<link rel="stylesheet" href="admin/css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="admin/css/style.css">
+	<!-- One Signal -->
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+	<script src="onesignal.js"></script>
   <style>
 		.errorWrap {
     padding: 10px;

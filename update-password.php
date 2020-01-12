@@ -69,6 +69,9 @@ $error="Your current password is wrong";
 <link rel="shortcut icon" href="assets/images/favicon-icon/favicon.png">
 <!-- Google-Font-->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+<!-- One Signal -->
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script src="onesignal.js"></script>
 <script type="text/javascript">
 function valid()
 {
@@ -212,7 +215,6 @@ foreach($results as $result)
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
 
-  <?php  include('one-signal-check.php'); ?>
 </body>
 </html>
 <?php } ?>

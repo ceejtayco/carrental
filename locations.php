@@ -40,6 +40,8 @@ header('location:index.php');
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="admin/css/style.css">
 	<link rel="stylesheet" href="admin/css/viewlocations.css">
+	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+	<script src="onesignal.js"></script>
   <style>
 		.errorWrap {
     padding: 10px;
@@ -199,7 +201,6 @@ header('location:index.php');
 	<script src="admin/js/fileinput.js"></script>
 	<script src="admin/js/chartData.js"></script>
 	<script src="admin/js/main.js"></script>
-  <?php  include('one-signal-check.php'); ?>
 </body>
 <!-- GOOGLE MAPS API -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5PPR2NTq1Q8W3oQQB5EBBP5dc0DaDO2I&callback=myMap" async differ></script>
