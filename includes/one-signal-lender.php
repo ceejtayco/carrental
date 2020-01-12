@@ -8,9 +8,9 @@
 		//Note: for matching ID of lender with vehicle from SESSION variable 
 		$fields = array(
 			'app_id' => "c7203da0-332c-4ab4-bf61-9e3802b93cb8",
-			'filters' => array(array("field" => "tag", "key" => "user_type", "relation" => "=", "value" => "0"),array("operator" => "AND"),array("field" => "tag", "key" => "user_id", "relation" => "=", "value" => $_SESSION['lenderid'])),
-			'data' => array("user_type" => "1"),
-			'url' => 'https://ezrent.online/manage-bookings.php',
+			'filters' => array(array("field" => "tag", "key" => "user_type", "relation" => "=", "value" => "1"),array("operator" => "AND"),array("field" => "tag", "key" => "user_name", "relation" => "=", "value" => $_SESSION['renter_email'])),
+			'data' => array("user_type" => "0"),
+			'url' => 'https://ezrent.online/my-booking.php',
 			'contents' => $content,
 				
 		);

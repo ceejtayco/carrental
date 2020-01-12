@@ -34,6 +34,13 @@
 	$query -> execute();
 
 	$msg="Booking Successfully Confirmed";
+
+	$sql = "SELECT userEmail FROM tblbooking WHERE id=:aeid";
+	$query = $dbh->prepare($sql);
+	$query-> bindParam(':aeid',$aeid, PDO::PARAM_STR);
+	$query -> execute();
+	$results=$query->fetchAll(PDO::FETCH_OBJ);
+    $_SESSION['renter_email'] = $results[0]->userEmail;
 	include('includes/one-signal-lender.php');
 	}
 
