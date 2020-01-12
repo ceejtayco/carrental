@@ -16,7 +16,7 @@
     $results = $query->fetchAll(PDO::FETCH_OBJ);
     // SEND NOTIF TO LENDER
     $_SESSION['lenderid'] = $results[0]->user_id;
-    $_SESSION['renter_notification_message'] = 'A renter has booked one of your vehicle';
+    $_SESSION['renter_notification_message'] = 'Renter has confirmed the usage';
     include('includes/one-signal.php');
     
     echo "Booking ID #" . $booking_id . " usage has successfully started.";
