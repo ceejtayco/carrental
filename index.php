@@ -57,7 +57,6 @@ error_reporting(0);
         enable: true,
       },
     });
-    console.log('Trigger push notification');
   });
 </script>
 </head>
