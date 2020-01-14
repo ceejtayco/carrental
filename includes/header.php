@@ -62,7 +62,7 @@ foreach($results as $result)
     if($_SESSION['utype'] == '0' && !empty($_SESSION['verified_at'])){
   ?>
 <i class="fa fa-check-circle" aria-hidden="true" style="color: skyblue; font-size: 15px;"></i>
-<h1 id="session_user_name" name="session_user_name">Hello There</h1>
+<p style="display:none;" id="session_user_name" name="session_user_name">Hello There</p>
 <input type="hidden" name="session_user_id" id="session_user_id" value="<?php echo $result->id; ?>"></input>
 <input type="hidden" name="session_user_type" id="session_user_type" value="<?php echo $result->userType; ?>"></input>
   <?php
