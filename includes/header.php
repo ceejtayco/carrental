@@ -58,13 +58,13 @@ foreach($results as $result)
 	{
 
 	 echo htmlentities($result->FullName); }}?>
+   <p style="display:none;" id="session_user_email" name="session_user_email"><?php echo $_SESSION['login']; ?></p>
+  <p style="display:none;" id="session_user_id" name="session_user_id"><?php echo $result->id; ?></p>
+  <p style="display:none;" id="session_user_type" name="session_user_type"><?php echo $result->UserType; ?></p>
   <?php
     if($_SESSION['utype'] == '0' && !empty($_SESSION['verified_at'])){
   ?>
 <i class="fa fa-check-circle" aria-hidden="true" style="color: skyblue; font-size: 15px;"></i>
-<p style="display:none;" id="session_user_email" name="session_user_email"><?php echo $_SESSION['login']; ?></p>
-<p style="display:none;" id="session_user_id" name="session_user_id"><?php echo $result->id; ?></p>
-<p style="display:none;" id="session_user_type" name="session_user_type"><?php echo $result->UserType; ?></p>
   <?php
     }
    ?>
