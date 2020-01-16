@@ -252,7 +252,7 @@ foreach($results as $result)
 
 <!-- MODAL FOR CONFIRMATION (1 WEEK BEFORE RENTING VEHICLE) -->
 <div class="modal fade" tabindex="-1" role="dialog" id="confirmationModal" aria-hidden="true">
-  <div class="modal-dialog" role="document" id="modal_confirm_dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document" id="modal_confirm_dialog">
     <div class="modal-content">
     <div class="modal-body text-center" id="modal_confirmation_body">
       
