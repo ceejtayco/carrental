@@ -274,8 +274,8 @@ foreach($results as $result)
       <table class="table">
         <thead>
           <th style="text-align:center;">Booking Date</th>
-          <th style="text-align:center; width: 150px;">Vehicle Name</th>
-          <th style="text-align:center; width: 200px;">Purpose</th>
+          <th style="text-align:center;">Vehicle Name</th>
+          <th style="text-align:center;">Purpose</th>
           <th style="text-align:center;">Return Date</th>
           <th style="text-align:center;">Action</th>
         </thead>
