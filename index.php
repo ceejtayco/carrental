@@ -249,7 +249,6 @@ foreach($results as $result)
 </section>
 <!-- /Listing--> 
 
-
 <!-- MODAL FOR CONFIRMATION (1 WEEK BEFORE RENTING VEHICLE) -->
 <div class="modal fade" tabindex="-1" role="dialog" id="confirmationModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document" id="modal_confirm_dialog">
@@ -340,16 +339,16 @@ foreach($results as $result)
 
 <!-- Scripts --> 
 
+<!-- Scripts -->
 <script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script> 
-
-<script src="assets/js/interface.js"></script> 
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/interface.js"></script>
 <!--Switcher-->
 <script src="assets/switcher/js/switcher.js"></script>
-<!--bootstrap-slider-JS--> 
-<script src="assets/js/bootstrap-slider.min.js"></script> 
-<!--Slider-JS--> 
-<script src="assets/js/slick.min.js"></script> 
+<!--bootstrap-slider-JS-->
+<script src="assets/js/bootstrap-slider.min.js"></script>
+<!--Slider-JS-->
+<script src="assets/js/slick.min.js"></script>
 <script src="assets/js/owl.carousel.min.js"></script>
 </body>
 <!--Google Maps API--> 
