@@ -46,9 +46,9 @@
     padding: 3px 15px;
 }
 
-/* #modal_confirm_dialog {
+#modal_confirm_dialog {
     width: 70%;
-} */
+}
 
 .pac-container {
     z-index: 100000;
