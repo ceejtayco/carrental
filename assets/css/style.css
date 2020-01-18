@@ -1064,8 +1064,8 @@ nav.navbar-nav {
 	3.1. Banner
 -------------------------------*/
 .banner-section {
-  background-image: url("../images/bg3.png");
-  /* background-image: url("../images/red-car-wide.jpg"); */
+  /* background-image: url("../images/bg3.png"); */
+  background-image: url("../images/red-car-wide.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -5509,4 +5509,17 @@ box-shadow: 0px 0px 29px 6px rgba(0,0,0,0.76) !important;
     overflow-y: auto;
     overflow-x: none;
     height:100%;
+}
+
+#nav-home-button:hover, #nav-about-us-button:hover, #nav-contact-us-button:hover {
+  color: white;
+}
+
+.navbar-nav > li:hover {
+  background-color:  #154360 ;
+}
+
+.navbar {
+  margin-bottom: 0;
+  border: none;
 }
