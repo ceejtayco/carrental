@@ -940,7 +940,7 @@ table thead th, table thead td {
 #navigation {
   padding: 0;
 }
-nav.navbar {
+nav.navbar-nav {
   background: #428bca none repeat scroll 0 0;
   border: medium none;
   margin: 0 auto;

@@ -121,7 +121,7 @@ foreach($results as $result)
         
         
       </div>
-      <div class="collapse navbar-collapse" id="navigation" style="background-color:black !important;" >
+      <div class="collapse navbar-collapse" id="navigation" style="background-color:#428bca; !important;" >
         <ul class="nav navbar-nav">
           <li><a href="index.php" id="nav-home-button">Home</a></li>
           <li><a href="car-listing.php" id="nav-about-us-button">About Us</a></li>
