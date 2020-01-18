@@ -933,7 +933,7 @@ table thead th, table thead td {
 	2.1 Navigation & Dropdown Menu
 ------------------------------------------*/
 #navigation_bar {
-  background: #111111 none repeat scroll 0 0;
+  background: #428bca none repeat scroll 0 0;
   border-radius: 0;
   padding: 0;
 }
@@ -941,7 +941,7 @@ table thead th, table thead td {
   padding: 0;
 }
 nav.navbar {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  background: #428bca none repeat scroll 0 0;
   border: medium none;
   margin: 0 auto;
 }
