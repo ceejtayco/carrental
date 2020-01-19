@@ -125,20 +125,6 @@ foreach($results as $result)
                 <div class="vehicle_title">
                   <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>""> <?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h6>
                   <p><b>From Date:</b> <?php echo htmlentities($result->FromDate);?><br /> <b>To Date:</b> <?php echo htmlentities($result->ToDate);?></p>
-                  <?php
-
-                  // Get interval of from date and current date
-                    $from_date = new DateTime($result->FromDate);
-                    $now = new DateTime();
-                    $interval = $from_date->diff($now)->format("%a");
-
-                    if($interval <= 2 && $result->Status==1) {
-                  ?>
-                  <a href="my-booking.php?cancel_booking_id=<?php echo htmlentities($result->booking_id); ?>" id="btn_cancel_booking" class="btn btn-sm">Cancel Booking</a>
-                  <?php
-                    }
-                  ?>
-                  
                 </div>
           <?php if($result->Status==1){ 
                   $sql_usage = "SELECT * FROM tblusage WHERE booking_id = :booking_id and start = 1";
@@ -450,30 +436,6 @@ foreach($results as $result)
       }
     });
   }
-</script>
-
-<script>
-  <?php
-    if(isset($_REQUEST['cancel_booking_id'])) {
-    // Cancel booking
-
-      $sql = "UPDATE tblbooking SET status = 2 WHERE id = :booking_id";
-      $query = $dbh->prepare($sql);
-      $query->bindParam(':booking_id', $_REQUEST['cancel_booking_id'], PDO::PARAM_STR);
-      $status = $query->execute();
-
-      if($status) {
-  ?>
-      alert('Your have successfully cancelled your booking.');
-      window.location = window.location.href.split("?")[0];
-  <?php
-      }else{
-  ?>
-      alert('An error had occured.');
-  <?php
-      }
-    }
-  ?>
 </script>
 </body>
 </html>
