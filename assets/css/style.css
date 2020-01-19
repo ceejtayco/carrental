@@ -1091,7 +1091,7 @@ nav.navbar-nav {
   width: 100%;
 }
 .banner-section::after {
-  background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
+  /* background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0; */
   bottom: 0;
   content: "";
   height: 100%;

@@ -50,7 +50,7 @@
 	$query -> execute();
 	$results=$query->fetchAll(PDO::FETCH_OBJ);
 	$_SESSION['renter_email'] = $results[0]->userEmail;
-	$_SESSION['lender_notification_message'] = 'Your booking has been confirmed';
+	$_SESSION['lender_notification_message'] = 'Your booking has been confirmed. NOTE: You have only 2 days to cancel your booking.';
 	include('includes/one-signal-lender.php');
 	}
 
