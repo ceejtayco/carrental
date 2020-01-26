@@ -125,6 +125,20 @@ foreach($results as $result)
                 <div class="vehicle_title">
                   <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid);?>""> <?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h6>
                   <p><b>From Date:</b> <?php echo htmlentities($result->FromDate);?><br /> <b>To Date:</b> <?php echo htmlentities($result->ToDate);?></p>
+                  <?php
+
+                  // Get interval of from date and current date (2 days prior)
+                    $from_date = new DateTime($result->FromDate);
+                    $now = new DateTime();
+                    $interval = $from_date->diff($now)->format("%a");
+
+                    if($interval <= 2 && $result->Status==1) {
+                  ?>
+                  <a href="my-booking.php?cancel_booking_id=<?php echo htmlentities($result->booking_id); ?>" id="btn_cancel_booking" class="btn btn-sm">Cancel Booking</a>
+                  <?php
+                    }
+                  ?>
+                  
                 </div>
           <?php if($result->Status==1){ 
                   $sql_usage = "SELECT * FROM tblusage WHERE booking_id = :booking_id and start = 1";
