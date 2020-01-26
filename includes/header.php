@@ -35,7 +35,7 @@ if ($detect->isMobile() || $detect->isTablet() ) {
       if ($isMobile) {
           
           echo "
-          <span class='navbar-text' style='position:absolute; text-align:left;color:white; left: 37% !important; top: 5px !important; font-weight:600;'>EzRent &nbsp; <i class='fa fa-car fa-sm'></i></span>
+          <span class='navbar-text' style='position:absolute; text-align:left;color:white; left: 3% !important; top: 5px !important; font-weight:600;'>EzRent &nbsp; <i class='fa fa-car fa-sm'></i></span>
           ";
       }
       ?>
