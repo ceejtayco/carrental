@@ -451,6 +451,29 @@ foreach($results as $result)
     });
   }
 </script>
+<script>
+  <?php
+    if(isset($_REQUEST['cancel_booking_id'])) {
+    // Cancel booking
+
+      $sql = "UPDATE tblbooking SET status = 2 WHERE id = :booking_id";
+      $query = $dbh->prepare($sql);
+      $query->bindParam(':booking_id', $_REQUEST['cancel_booking_id'], PDO::PARAM_STR);
+      $status = $query->execute();
+
+      if($status) {
+  ?>
+      alert('Your have successfully cancelled your booking.');
+      window.location = window.location.href.split("?")[0];
+  <?php
+      }else{
+  ?>
+      alert('An error had occured.');
+  <?php
+      }
+    }
+  ?>
+</script>
 </body>
 </html>
 <?php } ?>
