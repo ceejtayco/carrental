@@ -27,17 +27,17 @@ if ($detect->isMobile() || $detect->isTablet() ) {
   <nav id="navigation_bar" class="navbar navbar-default  <?php $isMobile ? 'fixed-top shadowed' : ''?>" style="<?php echo $navColor ?>">
     <div class="<?php echo $container ?>">
       <div class="navbar-header" style="padding-left:2rem !important;">
-        <button id="menu_slide" data-target="#navigation" aria-expanded="false" data-toggle="collapse" class="navbar-toggle collapsed" type="button" style="color:#428bca !important; border: none !important;"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar" style="color: #428bca !important;"></span> <span class="icon-bar" style="color: #428bca !important;"></span> <span class="icon-bar" style="color: #428bca !important;"></span> </button>
+        <button id="menu_slide" data-target="#navigation" aria-expanded="false" data-toggle="collapse" class="navbar-toggle collapsed" type="button" style="color:white !important; border: none !important; font-weight:600; top: -2px !important;">EzRent &nbsp; <i class='fa fa-car fa-sm'></i> </button>
         
         
       </div>
               <?php 
-      if ($isMobile) {
+      // if ($isMobile) {
           
-          echo "
-          <span class='navbar-text' style='position:absolute; text-align:left;color:white; left: 5% !important; top: 5px !important; font-weight:600;'>EzRent &nbsp; <i class='fa fa-car fa-sm'></i></span>
-          ";
-      }
+      //     echo "
+      //     <span class='navbar-text' style='position:absolute; text-align:left;color:white; left: 5% !important; top: 5px !important; font-weight:600;'>EzRent &nbsp; <i class='fa fa-car fa-sm'></i></span>
+      //     ";
+      // }
       ?>
       <div class="header_wrap">
   

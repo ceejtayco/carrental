@@ -170,17 +170,17 @@
 														           <div class="col-md-3 text-center">
 														               Filter By Status
 														           </div>
-    <div class="col-md-3 text-center  m-auto">
+    <div class="col-md-3 text-center  m-auto" style="padding-bottom:15px; padding-top: 15px;">
         <a class="btn-sm btn-primary m-auto text-center" style="margin: 0 auto;" href="pending-bookings.php">
             Pending
         </a>
     </div>
-     <div class="col-md-3  text-center m-auto">
+     <div class="col-md-3  text-center m-auto" style="padding-bottom:15px; padding-top: 15px;">
          <a class="btn-sm btn-primary m-auto text-center" style="margin: 0 auto;" href="confirmed-bookings.php">
             Confirmed
         </a>
     </div>
-     <div class="col-md-3 text-center  m-auto">
+     <div class="col-md-3 text-center  m-auto" style="padding-bottom:15px; padding-top: 15px;">
          <a class="btn-sm btn-primary m-auto text-center"  style="margin: 0 auto;" href="cancelled-bookings.php">
             Cancelled
         </a>
