@@ -127,7 +127,7 @@ foreach($results as $result)
                   <p><b>From Date:</b> <?php echo htmlentities($result->FromDate);?><br /> <b>To Date:</b> <?php echo htmlentities($result->ToDate);?></p>
                   <?php
 
-                  // Get interval of from date and current date
+                  // Get interval of from date and current date (2 days prior)
                     $from_date = new DateTime($result->FromDate);
                     $now = new DateTime();
                     $interval = $from_date->diff($now)->format("%a");
