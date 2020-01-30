@@ -12,3 +12,7 @@
     padding: auto;
     font-size: 13px;
 }
+
+.panel-default {
+    overflow: scroll;
+}
