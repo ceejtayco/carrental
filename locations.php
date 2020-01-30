@@ -79,7 +79,7 @@ header('location:index.php');
 						<h2 class="page-title">View Customers Location</h2>
 
 						<!-- Zero Configuration Table -->
-						<div class="panel panel-default">
+						<div class="panel panel-default" style=" width:100%; overflow-x:scroll;">
 							<div class="panel-heading">Location Details</div>
 							<div class="panel-body">
 							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
