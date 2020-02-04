@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 21, 2019 at 08:55 PM
+-- Generation Time: Feb 04, 2020 at 03:24 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -68,7 +68,10 @@ INSERT INTO `tblbooking` (`id`, `userEmail`, `VehicleId`, `FromDate`, `ToDate`, 
 (4, 'ceejltayco@gmail.com', 44, '2019-12-04', '2019-12-04', 'For roadtrip.', 3, '2019-12-03 15:39:43'),
 (5, 'jbadilles@gmail.com', 38, '2019-12-04', '2019-12-04', 'For business trip.', 3, '2019-12-04 07:48:29'),
 (6, 'ceejltayco@gmail.com', 38, '2019-12-23', '2019-12-23', 'For company outing.', 3, '2019-12-21 16:30:10'),
-(7, 'ceejltayco@gmail.com', 39, '2019-12-23', '2019-12-25', 'For business trp.', 3, '2019-12-21 19:14:23');
+(7, 'ceejltayco@gmail.com', 39, '2019-12-23', '2019-12-25', 'For business trp.', 3, '2019-12-21 19:14:23'),
+(11, 'ceejltayco@gmail.com', 37, '2020-01-12', '2020-01-12', 'Test for notification', 2, '2020-01-12 09:14:11'),
+(12, 'ceejltayco@gmail.com', 37, '2020-01-26', '2020-01-26', 'Test Only.', 2, '2020-01-26 08:12:27'),
+(13, 'ceejltayco@gmail.com', 37, '2020-01-26', '2020-01-26', 'Family use.', 2, '2020-01-26 08:15:19');
 
 -- --------------------------------------------------------
 
@@ -117,7 +120,10 @@ INSERT INTO `tblconfirmation` (`id`, `booking_id`, `confirm`, `date_confirmed`) 
 (1, 4, 0, '2019-12-04'),
 (2, 5, 0, '2019-12-04'),
 (3, 6, 0, '2019-12-22'),
-(4, 7, 0, '2019-12-22');
+(4, 7, 0, '2019-12-22'),
+(6, 11, 0, '2020-01-19'),
+(7, 12, 0, '2020-01-26'),
+(8, 13, 0, '2020-01-26');
 
 -- --------------------------------------------------------
 
@@ -233,7 +239,8 @@ INSERT INTO `tblratings` (`id`, `rental_id`, `renter_id`, `booking_Id`, `rating`
 (3, 96, 94, 4, 5, 0, '2019-12-04'),
 (4, 96, 94, 4, 4, 1, '2019-12-04'),
 (5, 93, 97, 5, 4, 1, '2019-12-05'),
-(6, 93, 94, 6, 5, 1, '2019-12-22');
+(6, 93, 94, 6, 5, 1, '2019-12-22'),
+(7, 95, 94, 7, 5, 1, '2020-01-19');
 
 -- --------------------------------------------------------
 
@@ -318,7 +325,8 @@ INSERT INTO `tblusers` (`id`, `verified_at`, `UserType`, `FullName`, `EmailId`, 
 (95, '2019-11-10', '0', 'Lender Demo 2', 'lender2@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.014706483897799, 125.49596476718136, NULL, NULL, NULL, NULL, '2019-11-10 06:37:55', '2019-11-10 06:39:31'),
 (96, '2019-12-03', '0', 'Lender Demo 3', 'lender3@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.053109999999999, 125.5589463, NULL, NULL, NULL, NULL, '2019-11-10 07:30:50', '2019-12-03 15:36:26'),
 (97, NULL, '1', 'Jenny Mae Badilles', 'jbadilles@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 0, 0, NULL, NULL, NULL, NULL, '2019-12-04 07:47:28', NULL),
-(98, '2019-12-22', '0', 'Lender 4', 'lender4@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.049762499541513, 125.58792300292976, NULL, NULL, NULL, NULL, '2019-12-21 16:47:51', '2019-12-21 19:52:20');
+(98, '2019-12-22', '0', 'Lender 4', 'lender4@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 7.049762499541513, 125.58792300292976, NULL, NULL, NULL, NULL, '2019-12-21 16:47:51', '2019-12-21 19:52:20'),
+(99, NULL, '1', 'Renter123', 'renter123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', 0, 0, NULL, NULL, NULL, NULL, '2020-01-18 07:47:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -479,7 +487,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `tblbooking`
 --
 ALTER TABLE `tblbooking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tblbrands`
@@ -491,7 +499,7 @@ ALTER TABLE `tblbrands`
 -- AUTO_INCREMENT for table `tblconfirmation`
 --
 ALTER TABLE `tblconfirmation`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tblcontactusinfo`
@@ -521,7 +529,7 @@ ALTER TABLE `tblpages`
 -- AUTO_INCREMENT for table `tblratings`
 --
 ALTER TABLE `tblratings`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tblsubscribers`
@@ -545,7 +553,7 @@ ALTER TABLE `tblusage`
 -- AUTO_INCREMENT for table `tblusers`
 --
 ALTER TABLE `tblusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `tblvehicles`
