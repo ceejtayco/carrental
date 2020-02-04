@@ -398,7 +398,7 @@ foreach($results as $result)
         mapTypeControlOptions: {
             mapTypeIds: ["OSM"]
         },
-        streetViewControl: false
+        streetViewControl: true
     });
     var marker_lender = new google.maps.Marker({
       position: new google.maps.LatLng(48.1391, 11.5802),
